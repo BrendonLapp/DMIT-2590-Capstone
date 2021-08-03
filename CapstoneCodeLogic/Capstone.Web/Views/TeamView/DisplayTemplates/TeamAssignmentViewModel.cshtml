@@ -1,0 +1,30 @@
+﻿@model Capstone.Web.Models.TeamAllocation.TeamAssignmentViewModel
+
+<tr>
+    @Html.HiddenFor(model => model.RoleID)
+    @Html.HiddenFor(model => model.EmployeeID)
+    @Html.HiddenFor(model => model.FirstName)
+    @Html.HiddenFor(model => model.LastName)
+    @Html.HiddenFor(model => model.IsUnsaved)
+    @Html.HiddenFor(model => model.PositionTitle)
+    @Html.HiddenFor(model => model.RoleTitle)
+    @Html.HiddenFor(model => model.UserID)
+    <td>
+        @Html.DisplayFor(model => model.FullName)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.PositionTitle)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.RoleTitle)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.UserID)
+    </td>
+    <td class="fontawesomebuttonstyling">
+        @if (Model.IsUnsaved == true)
+        {
+        <button id="currentRemoveButton" name="currentRemoveButton" value="@Model.EmployeeID"><i class="fas fa-minus-circle"></i></button>
+        }
+    </td>
+</tr>

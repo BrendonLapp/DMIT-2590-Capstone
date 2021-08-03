@@ -1,0 +1,64 @@
+﻿@model Capstone.Web.Models.ScheduleTypeViewModel
+
+@{
+    ViewBag.Title = "Schedule Type";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Schedule Type Details</h2>
+<hr />
+<div>
+    <div class="titlebox">
+        Details for @Model.Name
+    </div>
+
+
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HoursPerDay, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.HoursPerDay, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ActivationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.ActivationDate, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeactivationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.DeactivationDate, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+            </div>
+        </div>
+
+        <div class="form-group buttonrow">
+            <div>
+                <a href="~/ScheduleTypeView/Index" class="btn btn-default cancelButton">Cancel</a>
+            </div>
+            <div>
+                <a href="~/ScheduleTypeView/Edit" class="btn btn-default savebutton">Edit</a>
+            </div>
+        </div>
+
+    </div>
+</div>

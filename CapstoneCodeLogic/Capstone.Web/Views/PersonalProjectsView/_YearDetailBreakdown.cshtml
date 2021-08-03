@@ -1,0 +1,137 @@
+﻿@model Capstone.Web.Models.PersonalProjects.YearBreakdownViewModel
+
+<div>
+    <hr />
+
+    <div class="partialbuttonrow">
+        <button type="button" id="prevbutton" class="btn btn-default yearnav">Previous Year</button>
+
+        <h5>@Html.DisplayFor(model => model.Year)</h5>
+
+        <button type="button" id="nextbutton" class="btn btn-default yearnav">Next Year</button>
+    </div>
+
+
+    @Html.HiddenFor(Model => Model.EmployeeID)
+    <div>
+        <div class="breakdownrow">
+            <div class="boxstyle">
+                @Html.LabelFor(model => model.January, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div>
+                    @Html.EditorFor(model => model.January, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                </div>
+            </div>
+
+
+            <div class="boxstyle">
+                @Html.LabelFor(model => model.Febuary, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div>
+                    @Html.EditorFor(model => model.Febuary, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                </div>
+            </div>
+
+            <div class="boxstyle">
+                @Html.LabelFor(model => model.March, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div>
+                    @Html.EditorFor(model => model.March, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                </div>
+            </div>
+
+            <div class="boxstyle">
+                @Html.LabelFor(model => model.April, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div>
+                    @Html.EditorFor(model => model.April, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                </div>
+            </div>
+
+            <div class="boxstyle">
+                @Html.LabelFor(model => model.May, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div>
+                    @Html.EditorFor(model => model.May, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                </div>
+            </div>
+
+            <div class="boxstyle">
+                @Html.LabelFor(model => model.June, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div>
+                    @Html.EditorFor(model => model.June, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                </div>
+            </div>
+
+            <div class="boxstyle">
+                @Html.LabelFor(model => model.July, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div>
+                    @Html.EditorFor(model => model.July, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                </div>
+            </div>
+
+            <div class="boxstyle">
+                @Html.LabelFor(model => model.August, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div>
+                    @Html.EditorFor(model => model.August, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                </div>
+            </div>
+
+            <div class="boxstyle">
+                @Html.LabelFor(model => model.September, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div>
+                    @Html.EditorFor(model => model.September, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                </div>
+            </div>
+
+            <div class="boxstyle">
+                @Html.LabelFor(model => model.October, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div>
+                    @Html.EditorFor(model => model.October, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                </div>
+            </div>
+
+            <div class="boxstyle">
+                @Html.LabelFor(model => model.November, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div>
+                    @Html.EditorFor(model => model.November, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                </div>
+            </div>
+
+            <div class="boxstyle">
+                @Html.LabelFor(model => model.December, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div>
+                    @Html.EditorFor(model => model.December, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+        $("#nextbutton").on("click", function() {
+        var year = @Model.Year
+
+        $.ajax({
+          type: "POST",
+          url: '@Url.Action("_YearDetailBreakdown", "PersonalProjectsView")',
+          data: { EmployeeID: @Model.EmployeeID, ProjectID: @Model.ProjectID, Year: @Model.Year + 1 }
+        }).done(function(result) {
+            $("#partialview").html(result);
+        });
+      });
+</script>
+
+<script type="text/javascript">
+        $("#prevbutton").on("click", function() {
+        var year = @Model.Year
+
+        $.ajax({
+          type: "POST",
+          url: '@Url.Action("_YearDetailBreakdown", "PersonalProjectsView")',
+          data: { EmployeeID: @Model.EmployeeID, ProjectID: @Model.ProjectID, Year: @Model.Year - 1 }
+        }).done(function(result) {
+            $("#partialview").html(result);
+        });
+      });
+</script>
+
+

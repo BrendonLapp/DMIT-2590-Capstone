@@ -1,0 +1,38 @@
+﻿@model Capstone.Web.Models.Employee.EmployeeEntitledTimeOffViewModel
+
+@{
+    ViewBag.Title = "Employee";
+}
+
+<h2>Edit Employee Entitlements</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { novalidate = "" }))
+{
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+
+    <div class="titlebox">
+        Editing Entitlements for @Model.EmployeeName
+    </div>
+    <p class="alert-info">@TempData["message"]</p>
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    @Html.ValidationMessage("CustomErrors")
+    @Html.HiddenFor(model => model.EmployeeID)
+
+    @Html.EditorFor(model => model.EmployeeEntitlements)
+
+
+
+    <div class="form-group buttonrow">
+        <div>
+            <a href="~/EmployeeView/Index" class="btn btn-default cancelButton">Cancel</a>
+        </div>
+        <div>
+            <input type="submit" value="Save" class="btn btn-default savebutton" />
+        </div>
+    </div>
+</div>
+}

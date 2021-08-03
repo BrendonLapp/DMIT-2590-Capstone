@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Capstone.Web.Models.ProjectAllocation.EmployeeAllocationViewModel>
+
+<table class="table smalltable">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PositionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        @Html.HiddenFor(modelItem => item.PositionID)
+        @Html.HiddenFor(modelItem => item.RoleID)
+        @Html.HiddenFor(modelItem => item.TeamID)
+        @Html.HiddenFor(modelItem => item.EmployeeID)
+        <td>
+            @Html.DisplayFor(modelItem => item.RoleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PositionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td><button type="button" onclick="addtoproject(@item.EmployeeID)"><i class="fas fa-plus-circle"></i></button></td>
+    </tr>
+    }
+</table>
+

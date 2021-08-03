@@ -1,0 +1,210 @@
+﻿@model Capstone.Web.Models.Employee.ListEmployeeViewModel
+
+@{
+    ViewBag.Title = "Employees";
+}
+
+<h2>Deactivate Employee</h2>
+<hr />
+
+<div class="form-horizontal row">
+    <p>Are you sure you want to deactivate @Model.FirstName @Model.LastName?</p>
+
+    <div class="lefthalf">
+        <div class="titlebox titleboxwidthchange">
+            <span>Employee Information for @Model.FirstName @Model.LastName</span>
+        </div>
+        @*<button class="accordion" type="button">Employee Information <span><i class="fas fa-chevron-down"></i></span></button>*@
+        <div class="panel">
+            <div class="lefthalf">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName, "First Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PhoneNumber, "Phone Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CompanyPhoneNumber, "Company Phone Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.CompanyPhoneNumber, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BirthDate, "Birth Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @Value = Model.BirthDate.ToShortDateString(), @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+            </div>
+
+            <div class="righthalf">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName, "Last Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AlternatePhoneNumber, "Alternate Phone Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.AlternatePhoneNumber, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserID, "User ID", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="titlebox titleboxwidthchange" type="button">Emergency Contact </button>
+        <div class="panel">
+            <div class="lefthalf">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmergencyContactName1, "Emergency Contact 1", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.EmergencyContactName1, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmergencyContactName2, "Emergency Contact 2", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.EmergencyContactName2, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+            </div>
+
+            <div class="righthalf">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmergencyContactPhoneNumber1, "Emergency Phone Number 1", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.EmergencyContactPhoneNumber1, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmergencyContactPhoneNumber2, "Emergency Phone 2", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.EmergencyContactPhoneNumber2, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="righthalf">
+        <div class="titlebox titleboxwidthchange">
+            <span>Company Information</span>
+        </div>
+        @*<button class="accordion" type="button">Company Information <span><i class="fas fa-chevron-down"></i></span></button>*@
+        <div class="panel">
+            <div class="lefthalf innerlefthalf">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StationNumber, "Station Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.StationNumber, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.RoleID, "Role", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="accordiontextbox">
+                            @Html.DropDownList("RoleID", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PositionID, "Position", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.PositionTitle, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TeamName, "Team", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.TeamName, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="righthalf">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComputerNumber, "Computer Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.ComputerNumber, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RoleID, "User Role", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.RoleTitle, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ScheduleTypeName, "Schedule Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.ScheduleTypeName, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="titlebox titleboxwidthchange" type="button">Employment Dates</button>
+        <div class="panel">
+            <div class="lefthalf">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ActivationDate, "Start Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.ActivationDate, new { htmlAttributes = new { @Value = Model.ActivationDate.ToShortDateString(), @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.StartDate, "Start Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="accordiontextbox">
+                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @Value = Model.StartDate.ToShortDateString(), @class = "form-control" } })
+                        </div>
+                    </div>*@
+            </div>
+
+            <div class="righthalf">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DeactivationDate, "End Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="accordiontextbox">
+                        @Html.EditorFor(model => model.DeactivationDate, new { htmlAttributes = new { @Value = Model.DeactivationDate.HasValue ? Model.DeactivationDate.Value.ToShortDateString() : null, @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+<div class="form-actions negativemarginbuttonrow">
+    <div>
+        <a href="~/EmployeeView/Index" class="btn btn-default cancelButton">Cancel</a>
+    </div>
+    <div>
+        <input type="submit" value="Deactivate" class="btn btn-default deletebutton" onclick="return confirm('Are you sure you wish to deactivate @Html.DisplayFor(model => model.FullName)?')" />
+    </div>
+</div>
+}

@@ -1,0 +1,86 @@
+﻿@using Capstone.BLL.Security
+@{
+    ViewBag.Title = "Home";
+}
+
+<link href="~/Styles/hubindex.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row">
+            <h2>Home</h2>
+        </div>
+
+        <div class="row">
+            <a href="~/PersonalScheduleView/Index">
+                <div class="pagenavbox">
+                    <i class="fas fa-calendar-week"></i>
+                    <h4>Personal</h4>
+                    <h4>Calendar</h4>
+                </div>
+            </a>
+
+            <a href="~/TeamCalendarView/Index">
+                <div class="pagenavbox">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h4>Team</h4>
+                    <h4>Calendar</h4>
+                </div>
+            </a>
+
+            <a href="~/PersonalProjectsView/Index">
+                <div class="pagenavbox">
+                    <i class="fas fa-list-ul"></i>
+                    <h4>My Projects</h4>
+                </div>
+            </a>
+
+        </div>
+        @if (User.IsInRole(SecurityRoles.SupervisorRole) || User.IsInRole(SecurityRoles.TeamAdminRole))
+        {
+        <div class="row secondrow">
+            <a href="~/OvertimeRequestView/Index">
+                <div class="pagenavbox">
+                    <i class="fas fa-clock"></i>
+                    <h4>Overtime</h4>
+                    <h4>Management</h4>
+                </div>
+            </a>
+
+            <a href="~/EmployeeView/Index">
+                <div class="pagenavbox">
+                    <i class="fas fa-user"></i>
+                    <h4>Employee</h4>
+                    <h4>Management</h4>
+                </div>
+            </a>
+
+            <a href="~/TeamView">
+                <div class="pagenavbox">
+                    <i class="fas fa-users"></i>
+                    <h4>Team</h4>
+                    <h4>Management</h4>
+                </div>
+            </a>
+
+            <a href="~/ProjectHubView/Index">
+                <div class="pagenavbox">
+                    <i class="fas fa-project-diagram"></i>
+                    <h4>Project Hub</h4>
+                </div>
+            </a>
+
+            @if (User.Identity.IsAuthenticated && User.IsInRole(SecurityRoles.GlobalAdminRole))
+            {
+            <a href="~/AdministrativeHub/Index">
+                <div class="pagenavbox">
+                    <i class="fas fa-city"></i>
+                    <h4>Administrative</h4>
+                    <h4>Hub</h4>
+                </div>
+            </a>
+            }
+        </div>
+        }
+    </div>
+</div>

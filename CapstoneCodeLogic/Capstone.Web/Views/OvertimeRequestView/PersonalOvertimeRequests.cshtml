@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Capstone.Web.Models.OvertimeRequst.TeamOvertimeViewModel>
+
+@{
+    ViewBag.Title = "My Overtime Requests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Overtime Requests</h2>
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OvertimeTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubmissionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReviewDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubmissionNotes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovalNotes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Approved)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        @Html.HiddenFor(modelItem => item.ProjectDetailID)
+        @Html.HiddenFor(modelItem => item.EmployeeID)
+        @Html.HiddenFor(modelItem => item.OvertimeTypeID)
+        @Html.HiddenFor(modelItem => item.EmployeeName)
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OvertimeTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubmissionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReviewDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubmissionNotes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovalNotes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Approved)
+        </td>
+    </tr>
+    }
+
+</table>
+
+<div class="buttonrow">
+    <div>
+        <a href="~/PersonalScheduleView/Index" class="btn btn-default savebutton">Back to personal calendar</a>
+    </div>
+</div>

@@ -1,0 +1,262 @@
+﻿@model  Capstone.Web.Models.TeamCalendarViewModel
+@using Capstone.BLL.Security;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+
+    <script type="text/javascript">
+
+        function applyOnClick() {
+            console.log('apply On Clicks');
+
+
+        $("td").on("click", function () {
+            if ($(this).hasClass("absence")) {
+                var ID = $(this).find("a").attr("id");
+                //alert("Absence ID is: " + ID);
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("_AbsenceEdit", "TeamCalendarView")',
+                    data: { absenceID: ID}
+                }).done(function (result) {
+                    $("#createabsence").addClass('hidden');
+                    $("#editabsence").removeClass('hidden');
+                    $("#editabsence").html(result);
+
+                    $("#EditSaveButton").on("click", function (e) {
+                        console.log('edit btton clicked');
+                        $.ajax({
+                            type: "POST",
+                            url: "../TeamCalendarView/EditAbsence",
+                            data: { absenceID: $("#AbsenceID").val(), absenceDate: $("#AbsenceDate").val(), offDayID: $("#OffDayID").val(), employeeID: $("#EmployeeID").val(), halfDay: $("#HalfDay").val(), hours: $("#Hours").val(), notes: $("#Notes").val() }
+                        }).done(function (result) {
+                            console.log("This has been edited!")
+                            location.reload();
+                        });
+                    });
+
+                    $("#EditDeactivateButton").on("click", function (e) {
+                        console.log('edit btton clicked');
+                        $.ajax({
+                            type: "POST",
+                            url: "../TeamCalendarView/DeactivateAbsence",
+                            data: { absenceID: $("#AbsenceID").val() }
+                        }).done(function (result) {
+                            console.log("This has been edited!")
+                            location.reload();
+                        });
+                    });
+                });
+            }
+
+            if ($(this).hasClass("noabsence")) {
+                var cleanDate = $('#CurrentDate').text().replace(/\u200E/g, "")
+                var currDate = new Date(cleanDate);
+                var ID = $(this).find("a").attr("id");
+                var absenceday = $(this).attr("id");
+                var absencemonth = currDate.getMonth() + 1;
+                var absenceyear = currDate.getFullYear();
+                //alert("Employee ID is :" + ID)
+                console.log(cleanDate)
+                console.log(absenceday)
+                console.log(absencemonth)
+                console.log(absenceyear)
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("_AbsenceCreate", "TeamCalendarView")',
+                    data: { employeeID: ID, day: absenceday, month: absencemonth, year: absenceyear }
+                }).done(function (result) {
+                    $("#editabsence").addClass('hidden');
+                    $("#createabsence").removeClass('hidden');
+                    $("#createabsence").html(result);
+                    console.log($('#CreateSaveButton'));
+
+                    $("#CreateSaveButton").on("click", function (e) {
+                        console.log('save btton clicked');
+                        $.ajax({
+                            type: "POST",
+                            url: "../TeamCalendarView/CreateAbsence",
+                            data: { offDayID: $("#OffDayID").val(), absenceDate: $("#AbsenceDate").val(), employeeID: $("#EmployeeID").val(), halfDay: $("#HalfDay").val(), hours: $("#Hours").val(), notes: $("#Notes").val() }
+                        }).done(function (result) {
+                            console.log("This has saved!")
+                            location.reload();
+                        });
+                    });
+
+
+                });
+            }
+        });
+        }
+
+        applyOnClick()
+        $("#nextbutton").on("click", function () {
+            var cleanDate = $('#CurrentDate').text().replace(/\u200E/g, "")
+            var currDate = new Date(cleanDate);
+            currDate.setMonth(currDate.getMonth() + 1);
+
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            $('#CurrentDate').text(currDate.toLocaleDateString())
+            $('#ShowCurrentDate').text(monthNames[currDate.getMonth()] + " / " + currDate.getFullYear())
+            var dptDdl = document.getElementById("TeamID");
+            var newTeamID = 0;
+
+                newTeamID = dptDdl.options[dptDdl.selectedIndex].value;
+
+                console.log(newTeamID);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("_TeamAbsenceCalendar", "TeamCalendarView")',
+                data: { teamID: newTeamID, startDateString: $('#CurrentDate').text() }
+            }).done(function (result) {
+                $("#partialview").html(result);
+                $("#createabsence").addClass('hidden');
+                $("#editabsence").addClass('hidden');
+                applyOnClick();
+                });
+        });
+
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+            var dptDdl = document.getElementById("TeamID");
+            var currentDate = document.getElementById("StartDate");
+            dptDdl.addEventListener('change', function (evt) {
+                var newTeamID = 0;
+
+                newTeamID = dptDdl.options[dptDdl.selectedIndex].value;
+
+                console.log(newTeamID);
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("_TeamAbsenceCalendar", "TeamCalendarView")',
+                data: { teamID: newTeamID, startDateString: $('#CurrentDate').text() }
+            }).done(function (result) {
+                $("#partialview").html(result);
+                $("#createabsence").addClass('hidden');
+                $("#editabsence").addClass('hidden');
+                applyOnClick();
+                });
+            });
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        $("#prevbutton").on("click", function () {
+            var cleanDate = $('#CurrentDate').text().replace(/\u200E/g, "")
+            var currDate = new Date(cleanDate);
+            currDate.setMonth(currDate.getMonth() - 1);
+
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $('#CurrentDate').text(currDate.toLocaleDateString())
+            $('#ShowCurrentDate').text(monthNames[currDate.getMonth()] + " / " + currDate.getFullYear())
+            var dptDdl = document.getElementById("TeamID");
+            var newTeamID = 0;
+            newTeamID = dptDdl.options[dptDdl.selectedIndex].value;
+
+            console.log(newTeamID);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("_TeamAbsenceCalendar", "TeamCalendarView")',
+                data: { teamID: newTeamID, startDateString: $('#CurrentDate').text() }
+            }).done(function (result) {
+                $("#partialview").html(result);
+                $("#createabsence").addClass('hidden');
+                $("#editabsence").addClass('hidden');
+                applyOnClick();
+                });
+
+      });
+    </script>
+
+    <script src="~/Scripts/DatePicker.js"></script>
+    <script type="text/javascript">
+        $('input[type=text]').each(function () {
+            var req = $(this).attr('data-val-required');
+            if (undefined != req) {
+                var label = $('label[for="' + $(this).attr('id') + '"]');
+                var text = label.text();
+                if (text.length > 0) {
+                    label.append('<span style="color:red"> *</span>');
+                }
+            }
+        });
+    </script>
+
+    <script>
+        $("body").addClass("largepagelock");
+    </script>
+}
+
+<h2>Team Calendar</h2>
+
+<p class="alert-info">@TempData["message"]</p>
+<p class="alert-danger">@TempData["errorMessage"]</p>
+
+<div class="col-md-4 col-md-offset-2 hidden">
+    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div>
+        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+</div>
+
+@if (User.IsInRole(SecurityRoles.GlobalAdminRole))
+{
+<div class="row">
+    <div class="col-md-4 col-md-offset-2">
+        @Html.LabelFor(model => model.TeamID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div>
+            @Html.DropDownListFor(model => model.TeamID, (SelectList)ViewBag.TeamSelect, new { @class = "form-control" })
+        </div>
+    </div>
+
+</div>
+}
+
+else
+{
+<div class="row">
+    <div class="col-md-4 col-md-offset-2 hidden">
+        @Html.LabelFor(model => model.TeamID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="hidden">
+            @Html.DropDownListFor(model => model.TeamID, (SelectList)ViewBag.TeamSelect, new { @class = "form-control" })
+        </div>
+    </div>
+
+</div>
+}
+<br />
+<br />
+
+
+<h3 id="CurrentDate" class="hidden">@Model.StartDate.ToShortDateString()</h3>
+
+<div class="partialbuttonrow">
+    <button type="button" id="prevbutton" class="btn btn-default">Previous Month</button>
+    <h2 class="removemargin" id="ShowCurrentDate">@Model.StartDate.ToString("MMMM") / @Model.StartDate.Year</h2>
+    <button type="button" id="nextbutton" class="btn btn-default">Next Month</button>
+</div>
+<br />
+
+<div id="partialview">
+    @{
+        Html.RenderAction("_TeamAbsenceCalendar", "TeamCalendarView", new { Model.TeamID, Model.StartDate, string.Empty });
+    }
+</div>
+
+<div id="createabsence"></div>
+<div id="editabsence"></div>
+

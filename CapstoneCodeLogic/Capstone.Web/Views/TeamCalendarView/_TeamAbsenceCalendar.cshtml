@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Capstone.Web.Models.TeamCalendar.TeamCalendarTeamMemberModel>
+@using Capstone.BLL.Security;
+@using Capstone.Web.Admin;
+
+
+<div class="table" id="TeamCalendar">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                @if (Model.FirstOrDefault().Absences.Count() == 0)
+                {
+                    for (int day = 1; day <= DateTime.DaysInMonth(Model.FirstOrDefault().Year, Model.FirstOrDefault().Month); day++)
+                    {
+                <th>
+                    @day
+                </th>
+                    }
+                }
+
+                else
+                {
+                    for (int day = 1; day <= DateTime.DaysInMonth(Model.FirstOrDefault().Absences.FirstOrDefault().AbsenceDate.Year, Model.FirstOrDefault().Absences.FirstOrDefault().AbsenceDate.Month); day++)
+                    {
+                <th>
+                    @day
+                </th>
+                    }
+                }
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.FullName</td>
+
+
+                @if (item.Absences.Count == 0)
+                    {
+                        for (int day = 1; day <= DateTime.DaysInMonth(Model.FirstOrDefault().Year, Model.FirstOrDefault().Month); day++)
+                        {
+                <td id="@day" class="calendarwidth noabsence"><a id="@item.EmployeeID" /></td>
+                        }
+                    }
+
+                    else
+                    {
+                        for (int day = 1; day <= DateTime.DaysInMonth(Model.FirstOrDefault().Absences.FirstOrDefault().AbsenceDate.Year, Model.FirstOrDefault().Absences.FirstOrDefault().AbsenceDate.Month); day++)
+                        {
+                            foreach (var absence in item.Absences)
+                            {
+                                if (absence.AbsenceDate.Day == day)
+                                {
+                                    if (!User.IsInRole(SecurityRoles.SupervisorRole) && !User.IsInRole(SecurityRoles.TeamAdminRole) && IdentityHelper.GetEmployeeID() != item.EmployeeID)
+                                    {
+                <td class="calendarwidth absence" style="background-color: grey"><a id="@absence.AbsenceID" /></td>
+                                    }
+                                    else
+                                    {
+                <td class="calendarwidth absence" style="background-color: @absence.Color"><a id="@absence.AbsenceID" />@absence.OffDayAbbreviatedName</td>
+                                    }
+
+                                }
+                            }
+                            if (!item.Absences.Exists(a => a.AbsenceDate.Day == day))
+                            {
+                <td id="@day" class="calendarwidth noabsence"><a id="@item.EmployeeID" /></td>
+                            }
+
+                        }
+                    }
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+

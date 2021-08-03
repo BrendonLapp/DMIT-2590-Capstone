@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Capstone.Web.Models.AreaViewModel>
+
+@{
+    ViewBag.Title = "All Areas";
+}
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        var dptDdl = document.getElementById("DepartmentID");
+        dptDdl.addEventListener('change', function (evt) {
+            var deptID = 0;
+
+            var deptName = dptDdl.options[dptDdl.selectedIndex].text;
+            if (deptName == "All Departments")
+                deptID == 0;
+            else
+                deptID = dptDdl.options[dptDdl.selectedIndex].value;
+            console.log('selected department -' + deptName + ' in id ' + deptID);
+            $.ajax({
+                url: "../AreaView/GetAreasByDepartment",
+                data: { deptId: deptID },
+                cache: false,
+                type: "POST",
+                dataType: "html",
+                success: function (data, textStatus, XMLHttpRequest) {
+                    $("#partialView").html(data); //replace the current table
+                }
+            });
+        });
+    });
+
+</script>
+<h2>All Areas</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<p class="alert-info">@TempData["message"]</p>
+<div class="form-group">
+    <div>
+        @Html.DropDownList("DepartmentID", null, "All Departments", new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+
+
+<div id="partialView">@Html.Partial("_AreasIndex")</div>
+

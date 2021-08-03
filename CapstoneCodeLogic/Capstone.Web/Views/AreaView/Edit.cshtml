@@ -1,0 +1,104 @@
+﻿@model Capstone.Web.Models.AreaViewModel
+
+@{
+    ViewBag.Title = "Area";
+    //ViewBag.Title = "Capstone - Edit Area";
+}
+
+<h2>Edit Area</h2>
+
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+
+    <div class="titlebox">
+        Editing @Model.AreaName
+    </div>
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    @Html.ValidationMessage("CustomErrors")
+    @Html.HiddenFor(model => model.AreaID)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DepartmentID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 removefloat">
+            @Html.DropDownListFor(model => model.DepartmentID, (SelectList)ViewBag.DepartmentSelect, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.AreaName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 removefloat">
+            @Html.EditorFor(model => model.AreaName, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 removefloat">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ActivationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 removefloat">
+            @Html.EditorFor(model => model.ActivationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DeactivationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 removefloat">
+            @Html.EditorFor(model => model.DeactivationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+
+
+
+    <div class="form-group buttonrow">
+        <div>
+            <a href="~/AreaView/Index" class="btn btn-default cancelButton">Cancel</a>
+        </div>
+        <div>
+            <input type="submit" value="Save" class="btn btn-default savebutton" />
+        </div>
+    </div>
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script src="~/Scripts/DatePicker.js"></script>
+    <script type="text/javascript">
+
+        $('input[type=text]').each(function () {
+            var req = $(this).attr('data-val-required');
+            if (undefined != req) {
+                var label = $('label[for="' + $(this).attr('id') + '"]');
+                var text = label.text();
+                if (text.length > 0) {
+                    label.append('<span style="color:red"> *</span>');
+                }
+            }
+        });
+
+        $('input[type=datetime]').each(function () {
+            var req = $(this).attr('data-val-required');
+            if (undefined != req) {
+                var label = $('label[for="' + $(this).attr('id') + '"]');
+                var text = label.text();
+                if (text.length > 0) {
+                    label.append('<span style="color:red"> *</span>');
+                }
+            }
+        });
+
+    </script>
+}

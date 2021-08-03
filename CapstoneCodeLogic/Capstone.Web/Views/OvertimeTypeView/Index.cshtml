@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Capstone.Web.Models.OvertimeTypeViewModel>
+
+@{
+    ViewBag.Title = "All Overtime Types";
+}
+
+<h2>All Overtime Types</h2>
+<hr />
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<p class="alert-info">@TempData["message"]</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Pay Multiplier
+        </th>
+        <th>
+            Activation Date
+        </th>
+        <th>
+            Deactivation Date
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PayMultiplier)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeactivationDate)
+        </td>
+        <td class="buttoncolumn">
+            <div class="custombuttons">
+                @Html.ActionLink("Edit", "Edit", new { overtimeTypeId = item.OvertimeTypeID })
+            </div>
+            <div class="custombuttons">
+                @Html.ActionLink("Deactivate", "Deactivate", new { overtimeTypeId = item.OvertimeTypeID })
+            </div>
+            <div class="custombuttons">
+                @Html.ActionLink("Details", "Details", new { overtimeTypeId = item.OvertimeTypeID })
+            </div>
+        </td>
+    </tr>
+    }
+
+</table>

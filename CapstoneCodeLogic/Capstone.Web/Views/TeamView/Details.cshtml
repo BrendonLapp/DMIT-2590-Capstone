@@ -1,0 +1,77 @@
+﻿@model Capstone.Web.Models.TeamAllocation.TeamViewModel
+
+@{
+    ViewBag.Title = "TeamDetails";
+}
+
+<div>
+    <h2>Team Details</h2>
+    <hr />
+
+    <div class="titlebox">
+        Details for @Model.TeamName
+    </div>
+
+    <p class="alert-info">@TempData["message"]</p>
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @Html.ValidationMessage("CustomErrors")
+        @Html.HiddenFor(model => model.TeamID)
+        @Html.HiddenFor(model => model.PotentialTeamID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.UnitID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.UnitName, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TeamName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.TeamName, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ActivationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.ActivationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = true } })
+            </div>
+        </div>
+
+        <br />
+        <div class="row">
+            @Html.LabelFor(model => model.CurrentTeam)
+            <table class="table">
+                <tr>
+                    <th>
+                        Employee Name
+                    </th>
+                    <th>
+                        Position
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                    <th>
+                        User ID
+                    </th>
+                    <th></th>
+                </tr>
+                @Html.DisplayFor(model => model.CurrentTeam)
+
+            </table>
+        </div>
+    </div>
+    <div class="form-group buttonrow">
+        <div>
+            <a href="~/TeamView/Index" class="btn btn-default cancelButton">Cancel</a>
+        </div>
+        <div>
+            <a href="~/TeamView/Edit/@Model.TeamID" class="btn btn-default savebutton">Edit</a>
+        </div>
+    </div>
+</div>

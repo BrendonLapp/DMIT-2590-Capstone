@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Capstone.Web.Models.PaidHoliday.PaidHolidayViewModel>
+
+@{
+    ViewBag.Title = "All Paid Holidays";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>All Paid Holidays</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<p class="alert-info">@TempData["message"]</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HolidayName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HolidayDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeactivationDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HolidayName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HolidayDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivationDate)
+        </td>
+        <td>
+            @(item.DeactivationDate.HasValue ? Html.DisplayFor(modelItem => item.DeactivationDate).ToString() : "Currently Active")
+            @*@Html.DisplayFor(modelItem => item.DeactivationDate)*@
+        </td>
+        <td class="buttoncolumn">
+            <div class="custombuttons">
+                @Html.ActionLink("Edit", "Edit", new { id = item.PaidHolidayID })
+            </div>
+            <div class="custombuttons">
+                @Html.ActionLink("Deactivate", "Deactivate", new { id = item.PaidHolidayID })
+            </div>
+            <div class="custombuttons">
+                @Html.ActionLink("Details", "Details", new { id = item.PaidHolidayID })
+            </div>
+        </td>
+    </tr>
+    }
+
+</table>

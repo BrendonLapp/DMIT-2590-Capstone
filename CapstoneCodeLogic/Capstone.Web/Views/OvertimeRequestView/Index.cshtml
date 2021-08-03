@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Capstone.Web.Models.OvertimeRequst.TeamOvertimeViewModel>
+
+@{
+    ViewBag.Title = "Overtime Management";
+}
+
+<h2>Overtime Management</h2>
+<hr />
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+@using (Html.BeginForm())
+{
+
+<input type="hidden" id="hiddenOvertimeID" name="hiddenOvertimeID" />
+<input type="hidden" id="submissionMessage" name="submissionMessage" />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(Model => Model.EmployeeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OvertimeTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubmissionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Model => Model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovalNotes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Approved)
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+        {
+    <tr>
+        @Html.HiddenFor(modelItem => item.EmployeeID)
+        @Html.HiddenFor(modelItem => item.ProjectDetailID)
+        @Html.HiddenFor(modelItem => item.OvertimeTypeID)
+        @Html.HiddenFor(modelItem => item.OvertimeID)
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OvertimeTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubmissionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovalNotes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Approved)
+        </td>
+        <td>
+            <input type="submit" name="buttonName" value="Approve" onclick="approveClick(@item.OvertimeID)"
+                   formmethod="post" class="btn btn-default savebutton" />
+            <input type="submit" name="buttonName" value="Deny" onclick="denyClick(@item.OvertimeID)"
+                   formmethod="post" class="btn btn-default deletebutton" />
+        </td>
+    </tr>
+        }
+
+</table>
+}
+
+<script>
+    function approveClick(overtimeTypeID) {
+        var submissionmessage = prompt("Please enter a message for approval", "");
+        if (submissionmessage != null) {
+            $("#hiddenOvertimeID").val(overtimeTypeID);
+            $("#submissionMessage").val(submissionmessage)
+        }
+        else {
+            location.reload();
+        }
+    }
+</script>
+
+<script>
+    function denyClick(overtimeTypeID) {
+        var submissionmessage = prompt("Please enter a message for denial", "");
+        if (submissionmessage != null) {
+            $("#hiddenOvertimeID").val(overtimeTypeID);
+            $("#submissionMessage").val(submissionmessage)
+        }
+        else {
+            location.reload();
+        }
+    }
+</script>
+

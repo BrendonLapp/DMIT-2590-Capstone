@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Capstone.Web.Models.PersonalProjects.ListPersonalProjectsViewModel>
+
+@{
+    ViewBag.Title = "My projects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Projects</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllocatedDays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeactivationDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        @Html.HiddenFor(modelItem => item.ProjectID)
+        @Html.HiddenFor(modelItem => item.EmployeeID)
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllocatedDays)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeactivationDate)
+        </td>
+        <td>
+            <div class="viewbutton">
+                @Html.ActionLink("View", "Detail", new { ProjectID = item.ProjectID })
+            </div>
+        </td>
+    </tr>
+    }
+</table>

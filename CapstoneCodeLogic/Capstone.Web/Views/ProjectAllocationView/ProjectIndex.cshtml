@@ -1,0 +1,280 @@
+﻿@{
+    ViewBag.Title = "Project Allocation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input class="hidden" id="projectID" value="@ViewBag.ProjectID" />
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+
+<h2>Project Allocation</h2>
+
+<hr />
+
+<div class="titlebox">
+    Editing Project Allocation for @ViewBag.ProjectName
+</div>
+
+<div>
+    <div class="form-group">
+        <div>
+            @Html.DropDownList("TeamID", null, "Select a Team", new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div id="teamPartial">
+        @{
+            Html.RenderAction("_TeamPartial", "ProjectAllocationView");
+        }
+    </div>
+
+</div>
+
+<hr />
+
+<p id="teamsavemessage" class="alert-success"></p>
+
+<div id="allocationPartial">
+    @{
+        Html.RenderAction("_AllocationPartial", "ProjectAllocationView");
+    }
+</div>
+
+
+
+<div class="form-group buttonrow">
+    <div>
+        <a href="~/ProjectAllocationView/Index" class="btn btn-default cancelButton">Cancel</a>
+    </div>
+    <div>
+        <input id="submitbutton" type="submit" value="Save" class="btn btn-default savebutton" onclick="saveClick()" />
+    </div>
+</div>
+
+
+<script>
+    function saveClick() {
+        var json = [];
+        var errorList = [];
+        var projectID = document.getElementById("projectID").value;
+
+        var allocationArray = $(".allocationbox").toArray();
+
+        allocationArray.forEach(function (Element) {
+            var employeeID = Element.querySelector("#item_EmployeeID").value;
+            var year = Element.querySelector("#item_Year").value;
+            var allocationID = Element.querySelector("#item_AllocationID").value;
+            var projectJanuary = Element.querySelector("#months_Item2_ProjectJanuary").value;
+            checkIfNotANumber(projectJanuary, Element.querySelector("#employeename").value, "January");
+            var projectFebruary = Element.querySelector("#months_Item2_ProjectFebruary").value;
+            checkIfNotANumber(projectFebruary, Element.querySelector("#employeename").value, "February");
+            var projectMarch = Element.querySelector("#months_Item2_ProjectMarch").value;
+            checkIfNotANumber(projectMarch, Element.querySelector("#employeename").value, "March");
+            var projectApril = Element.querySelector("#months_Item2_ProjectApril").value;
+            checkIfNotANumber(projectApril, Element.querySelector("#employeename").value, "April");
+            var projectMay = Element.querySelector("#months_Item2_ProjectMay").value;
+            checkIfNotANumber(projectMay, Element.querySelector("#employeename").value, "May");
+            var projectJune = Element.querySelector("#months_Item2_ProjectJune").value;
+            checkIfNotANumber(projectJune, Element.querySelector("#employeename").value, "July");
+            var projectJuly = Element.querySelector("#months_Item2_ProjectJuly").value;
+            checkIfNotANumber(projectJuly, Element.querySelector("#employeename", "July").value);
+            var projectAugust = Element.querySelector("#months_Item2_ProjectAugust").value;
+            checkIfNotANumber(projectAugust, Element.querySelector("#employeename").value, "August");
+            var projectSeptember = Element.querySelector("#months_Item2_ProjectSeptember").value;
+            checkIfNotANumber(projectSeptember, Element.querySelector("#employeename", "September").value);
+            var projectOctober = Element.querySelector("#months_Item2_ProjectOctober").value;
+            checkIfNotANumber(projectOctober, Element.querySelector("#employeename").value, "October");
+            var projectNovember = Element.querySelector("#months_Item2_ProjectNovember").value;
+            checkIfNotANumber(projectNovember, Element.querySelector("#employeename").value, "November");
+            var projectDecember = Element.querySelector("#months_Item2_ProjectDecember").value;
+            checkIfNotANumber(projectDecember, Element.querySelector("#employeename").value, "December");
+
+            var tempAllo = {
+                employeeID: employeeID,
+                year: year,
+                allocationID: allocationID,
+                projectJanuary: projectJanuary,
+                projectFebruary: projectFebruary,
+                projectMarch: projectMarch,
+                projectApril: projectApril,
+                projectMay: projectMay,
+                projectJune: projectJune,
+                projectJuly: projectJuly,
+                projectAugust: projectAugust,
+                projectSeptember: projectSeptember,
+                projectOctober: projectOctober,
+                projectNovember: projectNovember,
+                projectDecember: projectDecember
+            };
+            json.push(tempAllo);
+        });
+        console.log(json);
+
+        if (errorList.length > 0) {
+            showErrors();
+        }
+        else {
+            $.ajax({
+                url: "../ProjectAllocationView/PostAllocation",
+                data: { json: json, projectID: projectID },
+                cache: false,
+                type: "POST",
+                dataType: "json",
+                success: function (data, textStatus, XMLHttpRequest) {
+                    console.log("Inside of sucess" + data);
+                }
+            });
+            document.getElementById("savemessage").innerHTML = "Allocation has successfully saved.";
+            document.getElementById("teamsavemessage").innerHTML = "";
+        }
+
+        //If there is no check on whether this is a number or not. The ajax function above will pass strings and negative numbers as a 0 to the PostAllocation message's json list
+        function checkIfNotANumber(value, employeeName, month) {
+            if (isNaN(value)) {
+                errorList.push(employeeName + "'s Allocation must contain numbers to be valid. For the month of: " + month + "<br>");
+            }
+            else if (value < 0) {
+                errorList.push(employeeName + "'s Allocation must be greather than 0. For the month of: " + month + "<br>");
+            }
+            else if (month === "January" || month === "March" || month === "May" || month === "July" || month === "August" || month === "October" || month === "December") {
+                if (value > 31.0 || value > 31) {
+                    errorList.push(employeeName + "'s Allocation for " + month + " must be less than or equal to 31 days <br>");
+                }
+            }
+            else if (month === "April" || month === "June" || month === "September" || month === "November") {
+                if (value > 30.0 || value > 30) {
+                    errorList.push(employeeName + "'s Allocation for " + month + " must be less than or equal to 30 days <br>");
+                }
+            }
+            else if (month === "February") {
+                var year = document.getElementById("item_Year").value;
+                if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+                    if (value > 29 || value > 29.0) {
+                        errorList.push(employeeName + "'s Allocation for " + month + " must be less than or equal to 29 days <br>");
+                    }
+                } else {
+                    if (value > 28 || value > 28.0) {
+                        errorList.push(employeeName + "'s Allocation for " + month + " must be less than or equal to 28 days <br>");
+                    }
+                }
+            }
+        }
+
+        function showErrors() {
+            var element = document.getElementById("errormessages");
+            element.innerHTML = errorList;
+        }
+
+    }
+</script>
+
+<script>
+    function addtoproject(newEmployeeID) {
+        var year = document.getElementById("currentYear").value;
+        var projectID = document.getElementById("projectID").value;
+
+        $.ajax({
+            url: "../ProjectAllocationView/CreateNewEmployeeOnProject",
+            data: { EmployeeID: newEmployeeID, year: year, projectID: projectID },
+            cache: false,
+            type: "POST",
+            dataType: "html",
+            success: function (data, textStatus, XMLHttpRequest) {
+                console.log("Inside of sucess" + data)
+            }
+        }).done(function (result) {
+            $("#allocationPartial").html(result);
+            //reloadTeamPartial();
+            document.getElementById("teamsavemessage").innerHTML = "Employee has successfully been added.";
+        });
+    }
+</script>
+
+<script>
+    function removeAllocation(allocationID) {
+        var year = document.getElementById("currentYear").value;
+        var projectID = document.getElementById("projectID").value;
+
+        $.ajax({
+            url: "../ProjectAllocationView/DeactivateEmployeeOnProject",
+            data: { allocationID: allocationID, year: year, projectID: projectID },
+            cache: false,
+            type: "POST",
+            dataType: "html",
+            success: function (data, textStatus, XMLHttpRequest) {
+                console.log("Inside of sucess" + data)
+            }
+        }).done(function (result) {
+            $("#allocationPartial").html(result);
+            //reloadTeamPartial();
+            document.getElementById("teamsavemessage").innerHTML = "Employee has successfully been removed.";
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function (event) {
+        var teamDdl = document.getElementById("TeamID");
+        var projectID = document.getElementById("projectID").value;
+        var year = document.getElementById("currentYear").value;
+
+        teamDdl.addEventListener('change', function (evt) {
+            var teamID = 0;
+
+            var teamName = teamDdl.options[teamDdl.selectedIndex].text;
+            if (teamName == "Select a Team") {
+                teamID == 0;
+                $("#teamPartial").addClass(".hidden");
+            }
+            else {
+                $("#teamPartial").removeClass(".hidden");
+                teamID = teamDdl.options[teamDdl.selectedIndex].value;
+            }
+            console.log('selected team -' + teamName + ' in id ' + teamID);
+            $.ajax({
+                url: "../ProjectAllocationView/_TeamPartial",
+                data: { teamID: teamID, projectID: projectID, year: year },
+                cache: false,
+                type: "POST",
+                dataType: "html",
+                success: function (data, textStatus, XMLHttpRequest) {
+                    $("#teamPartial").html(data);
+                }
+            });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function reloadTeamPartial() {
+        var teamDdl = document.getElementById("TeamID");
+        var projectID = document.getElementById("projectID").value;
+        var year = document.getElementById("currentYear").value;
+
+        var teamID = 0;
+
+        var teamName = teamDdl.options[teamDdl.selectedIndex].text;
+        if (teamName == "Select a Team") {
+            teamID == 0;
+            $("#teamPartial").addClass(".hidden");
+        }
+        else {
+            $("#teamPartial").removeClass(".hidden");
+            teamID = teamDdl.options[teamDdl.selectedIndex].value;
+        }
+        console.log('selected team -' + teamName + ' in id ' + teamID);
+        $.ajax({
+            url: "../ProjectAllocationView/_TeamPartial",
+            data: { teamID: teamID, projectID: projectID, year: year },
+            cache: false,
+            type: "POST",
+            dataType: "html",
+            success: function (data, textStatus, XMLHttpRequest) {
+                $("#teamPartial").html(data);
+            }
+        });
+    }
+
+</script>

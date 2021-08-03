@@ -1,0 +1,676 @@
+﻿
+header {
+    margin-bottom: 2%;
+}
+
+.navbar {
+    background-color: #d3f1fc;
+    width: 100%;
+    height: 75px;
+    position: fixed;
+    top: 0%;
+    z-index: 5;
+}
+
+#button-hide {
+    position: absolute;
+    top: 40%;
+    left: 20px;
+    color: #000000;
+    font-size: 3rem;
+}
+
+.navbar a img, .navbar a i {
+    float: left;
+}
+
+.navbar a img {
+    width: 200px;
+    left: 50px;
+    position: absolute;
+    top: 5%;
+}
+
+.navbar div {
+    color: #000;
+    font-size: 2.5rem;
+}
+
+.navbar div a i {
+    color: #000000;
+    position: absolute;
+    top: 50%;
+    left: 1%;
+}
+
+.navbar .userbox {
+    padding-right: 15px;
+    padding-left: 15px;
+    position: absolute;
+    right: 5%;
+    top: 25%;
+}
+
+.navbar .userbox h2 {
+    font-size: 1.5rem;
+}
+
+.navpanel {
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    border: 2px solid #d3f1fc;
+    height: 100vh;
+    background-color: #f2f6fc;
+    z-index: 4;
+    width: 18%;
+}
+
+.navbacking {
+    position: relative;
+    padding-top: 70px;
+}
+
+.navpanel .navbacking .navbox {
+    border-bottom: 2px solid #d3f1fc;
+    height: 70px;
+    color: #000000;
+    width: 100%;
+    padding: 5px 5px 5px 5px;
+    position: relative;
+}
+
+.navpanel .navbacking .navbox:hover,
+.navpanel .navbacking .navbox:hover .icon
+{
+    background-color: #6ecff4;
+    color: #ffffff;
+}
+
+.navpanel .navbacking .navbox:first-child {
+    border-top: 2px solid #d3f1fc;
+}
+
+.navpanel .navbacking .navbox .icon {
+    margin-left: 10px;
+    position: absolute;
+    top: 25%;
+    font-size: 3rem;
+    color: #6ecff4;
+}
+
+.navpanel .navbacking .navbox .name {
+    position: absolute;
+    left: 15%;
+    margin-left: 5%;
+    display: none;
+}
+
+.removefloat {
+    float: none;
+}
+
+.container {
+    width: 80%;
+    margin-top: 4%;
+}
+
+.errorbackground {
+    background-color:#d1e4f8;
+}
+
+hr {
+    border: 1px solid #d3f1fc  !important;
+}
+
+tr:first-of-type {
+    background-color: #f6fcfe;
+}
+
+tr:nth-child(odd) {
+    background-color: #f6fcfe;
+}
+
+th, tr td, tr th {
+    border: 1px solid #daf3fc !important;
+}
+
+.table tbody tr td {
+    vertical-align: middle;
+}
+
+p {
+    margin-bottom: 2%;
+}
+
+p a {
+    border: 2px solid #d3f1fc;
+    padding: 5px;
+    text-decoration: none;
+    color: #6ecff4;
+    border-radius: 5px;
+    background-color: #fdfdfd;
+}
+
+p a:hover {
+    text-decoration: none;
+    background-color: #6ecff4;
+    color: #ffffff;
+    border-color: #6ecff4;
+}
+
+select {
+    width: 280px;
+    height: 34px;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+h2 {
+    margin-bottom: 30px;
+}
+
+.custombuttons a {
+    background-color: #6ecff4;
+    padding: 5px;
+    border-radius: 5px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.custombuttons a:hover {
+    background-color: #ffd800;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.custombuttons:nth-child(2) a:hover {
+    background-color: #ff0000;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.custombuttons:nth-child(3) a:hover {
+    background-color: #0f40fe;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.btn-default {
+    border: 2px solid #d3f1fc !important;
+    color: #6ecff4 !important;
+}
+
+.buttoncolumn {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
+}
+
+.buttonrow {
+    display: flex;
+    width: 12%;
+    margin-top: 2% !important;
+    margin-left: 1% !important;
+}
+
+.buttonrow div:last-child {
+    margin-left: 5%;
+}
+
+.savebutton:hover {
+    color: #ffffff !important;
+    background-color: #1bce00 !important;
+    border-color: #1bce00 !important;
+}
+
+.cancelButton:hover {
+    color: #ffffff !important;
+    background-color: #fce619 !important;
+    border-color: #fce619 !important;
+}
+
+.deletebutton:hover {
+    color: #ffffff !important;
+    background-color: #ff1919 !important;
+    border-color: #ff1919 !important;
+}
+
+.centerbutton {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+
+.lefthalf {
+    float: left;
+    width: 49%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+}
+
+.righthalf {
+    float: left;
+    width: 49%;
+}
+
+.innerlefthalf {
+    padding-bottom: 60px;
+}
+
+.titlebox {
+    background-color: #6ecff4;
+    color: #ffffff;
+    border: 2px solid #d3f1fc;
+    border-radius: 10px;
+    padding: 18px;
+    width: 50%;
+    text-align: left;
+    margin-bottom: 2%;
+    outline: none;
+    cursor: default;
+}
+
+.titleboxwidthchange {
+    width: 100%;
+}
+
+.panel {
+    background-color: white;
+    visibility: visible;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.lefthalf .panel .form-group label {
+    width: 100%;
+    text-align: left;
+    padding-left: 0;
+}
+
+.customtextbox {
+    width: 100%;
+}
+
+.customdropdown {
+    height: 40px;
+    width: 10%;
+    border-radius: 5px;
+    border-color: #6ecff4;
+    margin-bottom: 2%;
+}
+
+.form-horizontal .form-group {
+    margin: 0;
+}
+
+.righthalf .panel .form-group label {
+    width: 100%;
+    text-align: left;
+    padding-left: 0;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.table tbody tr th:last-of-type {
+    width: 15%;
+}
+
+.form-control[disabled], fieldset[disabled] .form-control {
+    cursor: default;
+    background-color: #cacaca;
+}
+
+.partialbuttonrow {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 2%;
+}
+
+.partialbuttonrow input {
+    border: none;
+    font-size: 2.4rem;
+    width: 5%;
+    background-color: #ffffff;
+}
+
+.partialbuttonrow h5 {
+    font-size: 2.0rem;
+}
+
+.col-md-1 {
+    width: 6.5%;
+    padding: 0 !important;
+}
+
+.boxstyle {
+    width: 10%;
+    float: left;
+}
+
+.boxstyle div {
+    float: left;
+}
+
+.boxstyle div input {
+    width: 70%;
+    margin-left: 10%;
+    margin-right: 15%;
+}
+
+.boxstyleextended {
+    float: left;
+}
+
+.boxstyleextended input {
+    background-color: #ffffff;
+    border: none;
+    font-weight: bold;
+}
+
+.boxstyleextended h5:first-child {
+    font-weight: bolder;
+}
+
+.boxstyleextended h5:nth-child(2) {
+    padding: 2%;
+}
+
+.boxstyleextended h5:last-child {
+    padding: 1%;
+}
+
+.allocationbox {
+    height: 100px;
+    justify-content: space-between;
+    display: flex;
+    padding-bottom: 10%;
+}
+
+.breakdownrow {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.smalltable {
+    width: 65% !important;
+}
+
+.smalltable th:last-of-type {
+    width: 5% !important;
+}
+
+.smalltable td:last-of-type button {
+    border: none !important;
+    background-color: #ffffff !important;
+    color: #6ecff4;
+    font-size: 2.5rem;
+}
+
+.smalltable tr:nth-child(odd) td:last-of-type button {
+    background-color: #f6fcfe !important;
+}
+
+.smalltable td:last-of-type button:hover {
+    color: #1bce00;
+}
+
+.boxstyle:last-of-type button {
+    border: none;
+    background-color: #ffffff;
+    color: #6ecff4;
+    position: absolute;
+    padding-top: 2%;
+    font-size: 2.5rem;
+}
+
+.boxstyle:last-of-type button:hover {
+    color: #ff1919;
+}
+
+.customnavbutton a {
+    border: 2px solid #d3f1fc;
+    padding: 5px;
+    text-decoration: none;
+    color: #6ecff4;
+    border-radius: 5px;
+    margin-left: 2%;
+    background-color: #fdfdfd;
+}
+
+.viewbutton a {
+    background-color: #6ecff4;
+    padding: 5px;
+    border-radius: 5px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.viewbutton a:hover {
+    background-color: #1bce00;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.yearnav:hover {
+    color: #ffffff !important;
+    background-color: #6ecff4 !important;
+    border-color: #6ecff4 !important;
+}
+
+.maxwidth {
+    width: 100%;
+}
+
+.maxwidth .lefthalf,
+.maxwidth .righthalf {
+    width: 25%;
+    margin-right: 0;
+}
+
+.maxwidth .lefthalf .col-md-2,
+.maxwidth .righthalf .col-md-2 {
+    width: 100%;
+}
+
+.calendarwidth {
+    width: 3%;
+    
+}
+.calendarwidth a{
+    color: black;
+    text-decoration: none;
+}
+
+.largepagelock {
+    min-width: 1450px;
+}
+
+.ui-tabs .ui-tabs-nav {
+    margin: 0;
+    padding: 0 !important;
+    border-bottom: 2px solid #6ecff4 !important;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    border-bottom-right-radius: 0px !important;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
+    border-bottom-left-radius: 0px !important;
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
+    border-top-right-radius: 0px !important;
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl {
+    border-top-left-radius: 0px !important;
+}
+
+.ui-widget-header {
+    border: none !important;
+    background: none !important;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.ui-tabs .ui-tabs-nav li {
+    margin: 0px !important;
+    border-bottom-width: 0px !important;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+    border: 1px solid #6ecff4 !important;
+    background: #6ecff4 !important;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
+    cursor: default !important;
+}
+
+.calendardropdowns {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+}
+
+.paddingadd {
+    padding-top: 2%;
+}
+
+.removemargin {
+    margin: 0 !important;
+}
+
+.negativemarginbuttonrow {
+    display: flex;
+    width: 12%;
+    margin-left: -1% !important;
+}
+
+.negativemarginbuttonrow div:last-child {
+    margin-left: 5%;
+}
+
+.fontawesomebuttonstyling {
+    width: 5% !important;
+}
+
+.fontawesomebuttonstyling button{
+    border: none !important;
+    background-color: #ffffff !important;
+    color: #6ecff4;
+    font-size: 2.5rem;
+}
+
+@media only screen and (max-width: 1750px) {
+    .navbar a img {
+        width: 200px;
+        left: 50px;
+    }
+
+    .navpanel .navbacking a .name h3 {
+        font-size: 1.8rem;
+    }
+
+    .table tbody tr th:last-of-type {
+        width: 16%;
+    }
+
+    .table tbody tr th,
+    .table tbody tr td {
+        font-size: 1.2rem;
+    }
+}
+
+@media only screen and (max-width: 1550px) {
+    .pagenavbox {
+        width: 13% !important;
+    }
+}
+
+@media only screen and (max-width: 1460px) {
+    .table tbody tr th:last-of-type {
+        width: 17%;
+    }
+
+    .navpanel .navbacking a .name h3 {
+        font-size: 1.5rem;
+    }
+
+    .navpanel .navbacking .navbox {
+        height: 60px;
+    }
+
+    .navpanel .navbacking .navbox .icon {
+        font-size: 2.5rem;
+    }
+
+    .navpanel .navbacking .navbox .name {
+        left: 20%;
+    }
+
+    .buttonrow {
+        margin-left: 1.5% !important;
+    }
+}
+
+@media only screen and (max-width: 1350px) {
+    .pagenavbox {
+        width: 15% !important;
+    }
+}
+
+
+@media only screen and (max-width: 1170px) {
+    .pagenavbox {
+        width: 17% !important;
+    }
+
+    .table tbody tr th:last-of-type {
+        width: 25%;
+    }
+
+    .navpanel .navbacking a .name h3 {
+        margin-top: 10%;
+    }
+}
+
+@media only screen and (max-width: 1120px) {
+}
+
+@media only screen and (max-width: 960px) {
+    html {
+        min-width: 960px;
+    }
+
+    .container {
+        width: 90%;
+    }
+
+    .table tbody tr th:last-of-type {
+        width: 22%;
+    }
+
+    .navpanel {
+        width: 60px !important;
+    }
+
+    .navpanel .navbacking .navbox .name {
+        display: none !important;
+    }
+}

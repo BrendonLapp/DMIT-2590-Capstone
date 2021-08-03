@@ -1,0 +1,194 @@
+﻿@model List<Capstone.Web.Models.ProjectAllocation.AllocatedEmployeesViewModel>
+
+<div class="partialbuttonrow">
+    <button type="button" id="prevbutton" class="btn btn-default yearnav">Previous Year</button>
+    <input id="currentYear" value="@Model.FirstOrDefault().Year" disabled="disabled" />
+    <button type="button" id="nextbutton" class="btn btn-default yearnav">Next Year</button>
+</div>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<p id="errormessages" class="alert-danger"></p>
+<p id="savemessage" class="alert-success"></p>
+
+@if (Model == null || Model.Count == 0)
+{
+<p>No allocations found</p>
+}
+else
+{
+    foreach (var item in Model)
+    {
+<div>
+    @foreach (var months in item.allocatedDays.Zip(item.projectAllocation, Tuple.Create))
+            {
+    <div class="allocationbox" id="allocationrow">
+        @Html.HiddenFor(modelItem => item.EmployeeID)
+        @Html.HiddenFor(modelItem => item.Year)
+        @Html.HiddenFor(modelitem => item.AllocationID)
+
+        <div class="boxstyleextended">
+            <input id="employeename" value="@item.EmployeeName" disabled="disabled" />
+            <h5>All Allocation</h5>
+            <h5>Current Projects Allocation</h5>
+        </div>
+
+        <div class="boxstyle">
+            @Html.LabelFor(model => months.Item1.January, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div>
+                @Html.EditorFor(model => months.Item1.January, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.EditorFor(model => months.Item2.ProjectJanuary, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="boxstyle">
+            @Html.LabelFor(model => months.Item1.February, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div>
+                @Html.EditorFor(model => months.Item1.February, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.EditorFor(model => months.Item2.ProjectFebruary, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="boxstyle">
+            @Html.LabelFor(model => months.Item1.March, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div>
+                @Html.EditorFor(model => months.Item1.March, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.EditorFor(model => months.Item2.ProjectMarch, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="boxstyle">
+            @Html.LabelFor(model => months.Item1.April, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div>
+                @Html.EditorFor(model => months.Item1.April, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.EditorFor(model => months.Item2.ProjectApril, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="boxstyle">
+            @Html.LabelFor(model => months.Item1.May, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div>
+                @Html.EditorFor(model => months.Item1.May, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.EditorFor(model => months.Item2.ProjectMay, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="boxstyle">
+            @Html.LabelFor(model => months.Item1.June, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div>
+                @Html.EditorFor(model => months.Item1.June, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.EditorFor(model => months.Item2.ProjectJune, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="boxstyle">
+            @Html.LabelFor(model => months.Item1.July, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div>
+                @Html.EditorFor(model => months.Item1.July, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.EditorFor(model => months.Item2.ProjectJuly, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="boxstyle">
+            @Html.LabelFor(model => months.Item1.August, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div>
+                @Html.EditorFor(model => months.Item1.August, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.EditorFor(model => months.Item2.ProjectAugust, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="boxstyle">
+            @Html.LabelFor(model => months.Item1.September, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div>
+                @Html.EditorFor(model => months.Item1.September, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.EditorFor(model => months.Item2.ProjectSeptember, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="boxstyle">
+            @Html.LabelFor(model => months.Item1.October, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div>
+                @Html.EditorFor(model => months.Item1.October, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.EditorFor(model => months.Item2.ProjectOctober, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="boxstyle">
+            @Html.LabelFor(model => months.Item1.November, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div>
+                @Html.EditorFor(model => months.Item1.November, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.EditorFor(model => months.Item2.ProjectNovember, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="boxstyle">
+            @Html.LabelFor(model => months.Item1.December, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div>
+                @Html.EditorFor(model => months.Item1.December, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.EditorFor(model => months.Item2.ProjectDecember, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="boxstyle">
+            <button type="button" onclick="removeAllocation(@item.AllocationID)"><i class="fas fa-minus-circle"></i></button>
+        </div>
+    </div>
+            }
+</div>
+    }
+}
+
+<script>
+    $("#nextbutton").on("click", function () {
+        var year = @Model.FirstOrDefault().Year;
+
+        var allocationArray = $(".allocationbox").toArray();
+        console.log(allocationArray);
+
+        if (allocationArray.length >= 1) {
+            saveClick();
+            console.log("I should save");
+        }
+        else if (allocationArray.length >= 0) {
+            console.log("There is nothing to save");
+        }
+
+        var projectID = document.getElementById("projectID").value;
+
+        $.ajax({
+          type: "POST",
+          url: '@Url.Action("_AllocationPartial", "ProjectAllocationView")',
+          data: { projectID: projectID, year: year + 1 }
+        }).done(function(result) {
+            $("#allocationPartial").html(result);
+        });
+      });
+</script>
+
+<script>
+    $("#prevbutton").on("click", function () {
+
+        var year = @Model.FirstOrDefault().Year;
+
+        var allocationArray = $(".allocationbox").toArray();
+        console.log(allocationArray);
+
+        if (allocationArray.length >= 1) {
+            saveClick();
+            console.log("I should save");
+        }
+        else if (allocationArray.length >= 0) {
+            console.log("There is nothing to save");
+        }
+
+        var projectID = document.getElementById("projectID").value;
+
+        $.ajax({
+          type: "POST",
+          url: '@Url.Action("_AllocationPartial", "ProjectAllocationView")',
+          data: { projectID: projectID, year: year - 1 }
+        }).done(function(result) {
+            $("#allocationPartial").html(result);
+        });
+      });
+</script>

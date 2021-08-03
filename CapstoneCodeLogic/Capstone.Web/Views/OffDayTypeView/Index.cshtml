@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Capstone.Web.Models.OffDayTypeViewModel>
+
+@{
+    ViewBag.Title = "Absence Type";
+}
+
+<h2>All Absence Types</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<p class="alert-info">@TempData["message"]</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AbbreviatedName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PTO)
+        </th>
+        <th>
+            Activation Date
+        </th>
+        <th>
+            Deactivation Date
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        string itemPTO = item.PTO == false ? "No" : "Yes";
+
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AbbreviatedName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @itemPTO
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeactivationDate)
+        </td>
+        <td class="buttoncolumn">
+            <div class="custombuttons">
+                @Html.ActionLink("Edit", "Edit", new { offDayID = item.OffDayID })
+            </div>
+            <div class="custombuttons">
+                @Html.ActionLink("Deactivate", "Deactivate", new { offDayID = item.OffDayID })
+            </div>
+            <div class="custombuttons">
+                @Html.ActionLink("Details", "Details", new { offDayID = item.OffDayID })
+            </div>
+        </td>
+    </tr>
+    }
+
+</table>

@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Administrative Hub";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Styles/hubindex.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row">
+            <h2>Administrative Hub</h2>
+        </div>
+
+        <div class="row">
+            <a href="~/DepartmentView">
+                <div class="pagenavbox">
+                    <i class="fas fa-building"></i>
+                    <h4>Manage</h4>
+                    <h4>Departments</h4>
+                </div>
+            </a>
+
+            <a href="~/UnitView">
+                <div class="pagenavbox">
+                    <i class="fas fa-archway"></i>
+                    <h4>Manage</h4>
+                    <h4>Units</h4>
+                </div>
+            </a>
+
+            <a href="~/AreaView">
+                <div class="pagenavbox">
+                    <i class="fas fa-warehouse"></i>
+                    <h4>Manage</h4>
+                    <h4>Areas</h4>
+                </div>
+            </a>
+
+            <a href="~/PaidHolidayView/Index">
+                <div class="pagenavbox">
+                    <i class="fas fa-map"></i>
+                    <h4>Manage</h4>
+                    <h4>Paid Holidays</h4>
+                </div>
+            </a>
+        </div>
+
+        <div class="row">
+            <a href="~/PositionView/Index">
+                <div class="pagenavbox">
+                    <i class="far fa-id-badge"></i>
+                    <h4>Manage</h4>
+                    <h4>Positions</h4>
+                </div>
+            </a>
+
+            <a href="~/ScheduleTypeView/Index">
+                <div class="pagenavbox">
+                    <i class="far fa-clipboard"></i>
+                    <h4>Manage</h4>
+                    <h4>Schedule Types</h4>
+                </div>
+            </a>
+
+            <a href="~/OvertimeTypeView/Index">
+                <div class="pagenavbox">
+                    <i class="far fa-dot-circle"></i>
+                    <h4>Manage</h4>
+                    <h4>Overtime Types</h4>
+                </div>
+            </a>
+
+            <a href="~/OffDayTypeView/Index">
+                <div class="pagenavbox">
+                    <i class="fas fa-clipboard-check"></i>
+                    <h4>Manage</h4>
+                    <h4>Absence Types</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+

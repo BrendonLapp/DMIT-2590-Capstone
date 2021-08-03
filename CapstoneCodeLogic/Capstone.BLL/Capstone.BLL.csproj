@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4A286433-2CFE-4A57-B1B5-EF96FBE36040}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TACO.BLL</RootNamespace>
+    <AssemblyName>TACO.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\OffDayTypeController.cs" />
+    <Compile Include="Controllers\OvertimeRequestController.cs" />
+    <Compile Include="Controllers\OvertimeTypeController.cs" />
+    <Compile Include="Controllers\PersonalProjectsController.cs" />
+    <Compile Include="Controllers\PersonalScheduleController.cs" />
+    <Compile Include="Controllers\ProjectAllocationController.cs" />
+    <Compile Include="Controllers\ScheduleTypeController.cs" />
+    <Compile Include="Controllers\PaidHolidayController.cs" />
+    <Compile Include="Controllers\ProjectCategoryController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\TeamCalendarController.cs" />
+    <Compile Include="DTOs\DepartmentDTO.cs" />
+    <Compile Include="DTOs\EmployeeDTO.cs" />
+    <Compile Include="DTOs\EmployeeWithForignKeyNamesDTO.cs" />
+    <Compile Include="DTOs\EntiltedTimeOffDTO.cs" />
+    <Compile Include="DTOs\OffDayTypeDTO.cs" />
+    <Compile Include="DTOs\OvertimeRequestDTOs\EmployeeList.cs" />
+    <Compile Include="DTOs\OvertimeRequestDTOs\TeamOvertimeRequestDTO.cs" />
+    <Compile Include="DTOs\PaidHolidayDTO.cs" />
+    <Compile Include="DTOs\PaidHolidayEditDTO.cs" />
+    <Compile Include="DTOs\OvertimeTypeDTO.cs" />
+    <Compile Include="Controllers\AreaController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\UnitController.cs" />
+    <Compile Include="DTOs\AreaDTO.cs" />
+    <Compile Include="DTOs\KeyValueDTO.cs" />
+    <Compile Include="DTOs\PersonalProjects\PersonalProjectBreakdownDTO.cs" />
+    <Compile Include="DTOs\PersonalProjects\PersonalProjectsDTO.cs" />
+    <Compile Include="DTOs\PersonalProjects\YearBreakdownDTO.cs" />
+    <Compile Include="DTOs\PositionDTO.cs" />
+    <Compile Include="DTOs\PositionEditDTO.cs" />
+    <Compile Include="DTOs\ProjectAllocation\AllocatedDaysDTO.cs" />
+    <Compile Include="DTOs\ProjectAllocation\AllocatedEmployeesDTO.cs" />
+    <Compile Include="DTOs\ProjectAllocation\EmployeeAllocationDTO.cs" />
+    <Compile Include="DTOs\ProjectAllocation\ProjectAllocatedDaysDTO.cs" />
+    <Compile Include="DTOs\ProjectDTOs\ProjectDropDownDTO.cs" />
+    <Compile Include="DTOs\ProjectDTOs\ProjectDTO.cs" />
+    <Compile Include="DTOs\ProjectDetailDTO.cs" />
+    <Compile Include="DTOs\ProjectDTOs\ProjectCategoryDDLDTO.cs" />
+    <Compile Include="DTOs\ScheduleTypeDTO.cs" />
+    <Compile Include="DTOs\TeamCalendarDTOs\AbsencesDTO.cs" />
+    <Compile Include="DTOs\TeamCalendarDTOs\TeamCalendarAbsenceDetailDTO.cs" />
+    <Compile Include="DTOs\TeamDTO.cs" />
+    <Compile Include="DTOs\UnitDTO.cs" />
+    <Compile Include="DTOs\ProjectCategoryDTO.cs" />
+    <Compile Include="Controllers\PositionController.cs" />
+    <Compile Include="DTOs\UnsavedAssignmentDataClass.cs" />
+    <Compile Include="Exceptions\UserNotFoundException.cs" />
+    <Compile Include="Security\SecurityController.cs" />
+    <Compile Include="Security\SecurityDTO.cs" />
+    <Compile Include="Security\SecurityRoles.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TACO.DAL\Capstone.DAL.csproj">
+      <Project>{6350eb55-883a-4324-9112-2fd7fc72e581}</Project>
+      <Name>Capstone.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

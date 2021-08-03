@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Capstone.Web.Models.UnitViewModel>
+
+@{
+    ViewBag.Title = "All Units";
+}
+
+<h2>All Units</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<p class="alert-info">@TempData["message"]</p>
+
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.UnitName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeactivationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Area.AreaName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeactivationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Area.AreaName)
+        </td>
+        <td class="buttoncolumn">
+            <div class="custombuttons">
+                @Html.ActionLink("Edit", "Edit", new { id = item.UnitID })
+            </div>
+            <div class="custombuttons">
+                @Html.ActionLink("Deactivate", "Deactivate", new { id = item.UnitID })
+            </div>
+            <div class="custombuttons">
+                @Html.ActionLink("Details", "Details", new { id = item.UnitID })
+            </div>
+        </td>
+    </tr>
+}
+
+</table>

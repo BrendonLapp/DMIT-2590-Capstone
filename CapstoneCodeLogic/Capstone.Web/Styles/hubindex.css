@@ -1,0 +1,45 @@
+﻿.col-lg-12 .row:nth-child(2) {
+    border-top: 2px solid #d3f1fc;
+}
+
+.col-lg-12 .secondrow {
+    border-top: 2px solid #d3f1fc;
+    margin-top: 5%;
+}
+
+.pagenavbox {
+    background-color: #f2f6fc;
+    height: 150px;
+    width: 11%;
+    float: left;
+    margin-top: 1%;
+    margin-right: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #d3f1fc;
+    text-decoration: none;
+    padding-top: 1%;
+}
+
+.pagenavbox svg {
+    font-size: 5.5rem;
+    padding-bottom: 5%;
+    color: #6ecff4;
+}
+
+.pagenavbox h4 {
+    font-size: 2.0rem;
+    text-align: center;
+    margin: 0 0 0 0;
+    color: #000000;
+}
+
+.pagenavbox:hover {
+    background-color: #6ecff4;
+}
+
+.pagenavbox:hover svg,
+.pagenavbox:hover h4 {
+    color: #ffffff;
+}

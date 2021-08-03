@@ -1,0 +1,552 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Personal Calendar</h2>
+<hr />
+
+<div class="calendardropdowns">
+    <div class="row hidden" id="TeamSelector">
+        @Html.DropDownList("TeamList", null, new { @class = "form-control col-md-6" })
+    </div>
+    <div class="row hidden" id="EmployeeSelector">
+        <select id="Employees" class="form-control col-md-6"></select>
+        <button id="GetCalendar" class="btn btn-primary ">Select Employee</button>
+    </div>
+</div>
+
+<h3 id="CalendarFor"></h3>
+
+<div class="row">
+    <div class="col-md-8"><div id="calendar"></div></div>
+    <div class="col-md-4">
+        <p id="message" class="alert-info"></p>
+
+        <div id="tabs">
+            <ul>
+                <li><a href="#createTab">Create Event</a></li>
+                <li><a href="#editTab">Edit Event</a></li>
+                <li><a href="#overtimeTab">Overtime</a></li>
+            </ul>
+
+            <div id="createTab">
+                <br />
+                @using (Html.BeginForm("CreateEvent", "PersonalScheduleView", FormMethod.Post))
+                {
+                    {
+                        Html.RenderPartial("_PartialTimesheet");
+                    }
+                    <div class="form-group">
+                        <div class="col-md-offset-2">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div id="editTab">
+                <p>Click on an event to edit.</p>
+                @using (Html.BeginForm("EditEvent", "PersonalScheduleView", FormMethod.Post))
+                {
+                    {
+                        Html.RenderPartial("_PartialTimesheet");
+                    }
+                    <div class="form-group">
+                        <div class="col-md-offset-2">
+                            <input type="submit" value="Edit" class="btn btn-default" onclick="return editFormAttachButtonName('Edit');" />
+                            <input type="submit" value="Delete" class="btn btn-default" onclick="return editFormAttachButtonName('Delete');" />
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div id="overtimeTab">
+                <br />
+                @using (Html.BeginForm("CreateOvertimeRequest", "PersonalScheduleView", FormMethod.Post))
+                {
+                    <div class="form-group">
+
+                        <div class="col-md-10 removefloat">
+                            <label for="OvertimeType">Overtime Type</label>
+                            @Html.DropDownList("OvertimeType", null, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    {
+                        Html.RenderPartial("_PartialTimesheet");
+                    }
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2">
+                            <input type="submit" value="Submit Overtime Request" class="btn btn-default savebutton" />
+                        </div>
+                        <div class="col-md-offset-2 paddingadd">
+                            <a href="~/OvertimeRequestView/PersonalOvertimeRequests" class="btn btn-default savebutton">View overtime requests</a>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    @Scripts.Render("~/Content/FullCalendar/core")
+    @Styles.Render("~/bundles/FullCalendar/core")
+    @Scripts.Render("~/Content/FullCalendar/daygrid")
+    @Styles.Render("~/bundles/FullCalendar/daygrid")
+    @Scripts.Render("~/Content/FullCalendar/timegrid")
+    @Styles.Render("~/bundles/FullCalendar/timegrid")
+    @Scripts.Render("~/bundles/jquery-timepicker")
+    @Styles.Render("~/Content/jquery-timepicker")
+
+    <script type="text/javascript">
+
+        function editFormAttachButtonName(button) {
+            editFormButtonClickedName = button;
+        }
+        var editFormButtonClickedName;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var dataItems = [];
+            var currentOpenTab = "createTab";
+            var selectedEventID = -1;
+			var loggedInEmployeeID = @ViewBag.LoggedEmployeeID;
+			var loggedInRole = @ViewBag.LoggedInRole;
+			var loggedInTeam = @ViewBag.LoggedInTeam;
+            var employeeSelected = loggedInEmployeeID;
+
+            populateProjectDDL(employeeSelected);
+			$('#TeamList').on('change', selectTeam);
+			$('#GetCalendar').on("click", selectEmployee);
+			var calendarEl = document.getElementById('calendar');
+			var formCreate = document.querySelector("form[action='/PersonalScheduleView/CreateEvent']");
+			var formOvertime = document.querySelector("form[action='/PersonalScheduleView/CreateOvertimeRequest']");
+			var formEdit = document.querySelector("form[action='/PersonalScheduleView/EditEvent']");
+
+			$('input[name=StartTime]').timepicker();
+			$('input[name=EndTime]').timepicker();
+			$('input[name=EventDate]').datepicker({
+				dateFormat: "m/d/yy",
+				changeMonth: true,
+				changeYear: true,
+				yearRange: "-60:+60"
+			});
+			getCalendarByEmployee(); // preload calendar for current employee
+
+			// prevent caching for ie11
+			$.ajaxSetup({ cache: false });
+
+			if (loggedInRole != 1) {
+				$('#EmployeeSelector').removeClass('hidden');
+				populateEmployeeDDL(loggedInTeam);
+			}
+			if (loggedInRole == 4) {
+				$('#TeamSelector').removeClass('hidden');
+			};
+
+            $("#tabs").tabs({
+                activate: function (event, ui) {
+                    currentOpenTab = ui.newPanel.get()[0].id;
+                    if (selectedEventID != -1 && currentOpenTab == "editTab")
+                        $('#editTab form').css('display', 'block');
+                    else {
+                        selectedEventID = -1;
+                        $('#editTab form').css('display', 'none');
+                        $('#editTab p').css('display', 'block');
+                    }
+                }
+            });
+
+            formEdit.addEventListener('submit', function (evt) {
+                evt.preventDefault();
+                console.log(editFormButtonClickedName);
+                switch (editFormButtonClickedName) {
+                    case 'Edit':
+                        var projectDdl = $("#editTab select[name=ProjectID]");
+                        var eventDate = $('#editTab input[name=EventDate]').val();
+                        var startTime = $('#editTab input[name=StartTime]').val();
+                        var endTime = $('#editTab input[name=EndTime]').val();
+                        var notes = $('#editTab input[name=Notes]').val();
+                        var projectID = projectDdl.val();
+                        if (validateEvent('#editTab', eventDate, startTime, endTime, notes) == false) {
+
+                            $.ajax({
+                                url: "../PersonalScheduleView/EditEvent",
+								data: { eventId: selectedEventID, date: eventDate, start: startTime, end: endTime, projectID: projectID, notes: notes, employeeID: employeeSelected },
+                                cache: false,
+                                type: "POST",
+                                dataType: "html",
+								success: function (data, textStatus, XMLHttpRequest) {
+									console.log('edit in success');
+									$('#message').text(data);
+									clearForm('#editTab');
+									selectedEventID = -1;
+									$('#editTab form').css('display', 'none');
+									$('#editTab p').css('display', 'block');
+									getCalendarByEmployee();
+                                }
+                            });
+                        }
+                        break;
+                    case 'Delete':
+
+                        $.ajax({
+                            url: "../PersonalScheduleView/DeleteEvent",
+                            data: { eventId: selectedEventID },
+                            cache: false,
+                            type: "POST",
+                            dataType: "html",
+                            success: function (data, textStatus, XMLHttpRequest) {
+								console.log('Event Deleted');
+								$('#message').text(data);
+								clearForm('#editTab');
+								selectedEventID = -1;
+								$('#editTab form').css('display', 'none');
+								$('#editTab p').css('display', 'block');
+								getCalendarByEmployee();
+                            }
+                        });
+                        break;
+                }
+
+
+            });
+            formCreate.addEventListener('submit', function (evt) {
+                evt.preventDefault();
+
+                var projectDdl = $("#createTab select[name=ProjectID]");
+                var eventDate = $('#createTab input[name=EventDate]').val();
+                var startTime = $('#createTab input[name=StartTime]').val();
+                var endTime = $('#createTab input[name=EndTime]').val();
+                var notes = $('#createTab input[name=Notes]').val();
+                var projectID = projectDdl.val();
+                if (validateEvent('#createTab', eventDate, startTime, endTime, notes) == false) {
+                    console.log('Send package')
+                    $.ajax({
+                        url: "../PersonalScheduleView/CreateEvent",
+						data: { date: eventDate, start: startTime, end: endTime, projectID: projectID, notes: notes, employeeID: employeeSelected },
+                        cache: false,
+                        type: "POST",
+                        dataType: "html",
+                        success: function (data, textStatus, XMLHttpRequest) {
+							$('#message').text(data);
+							console.log('Great success');
+							clearForm('#createTab');
+
+							getCalendarByEmployee();
+                        }
+                    });
+                }
+            });
+
+            formOvertime.addEventListener('submit', function (evt) {
+                evt.preventDefault();
+
+                var projectDdl = $("#overtimeTab select[name=ProjectID]");
+                var overtimeDdl = $("#overtimeTab select[name=OvertimeType]");
+                var eventDate = $('#overtimeTab input[name=EventDate]').val();
+                var startTime = $('#overtimeTab input[name=StartTime]').val();
+                var endTime = $('#overtimeTab input[name=EndTime]').val();
+                var notes = $('#overtimeTab input[name=Notes]').val();
+                var projectID = projectDdl.val();
+                var overtimeTypeID = overtimeDdl.val();
+                if (validateEvent('#overtimeTab', eventDate, startTime, endTime, notes) == false) {
+                    console.log('Send package')
+                    $.ajax({
+                        url: "../PersonalScheduleView/CreateOvertimeRequest",
+						data: { date: eventDate, start: startTime, end: endTime, projectID: projectID, overtimeTypeID: overtimeTypeID, notes: notes, employeeID: employeeSelected },
+                        cache: false,
+                        type: "POST",
+                        dataType: "html",
+                        success: function (data, textStatus, XMLHttpRequest) {
+							$('#message').text(data);
+							console.log('Overtime request sent!');
+							clearForm('#overtimeTab');
+                        }
+                    });
+                }
+            });
+
+			// Called when receiving JSON data to populate the calendar
+			// items is JSON Object which contains arrays of events
+			// The function parses all events into event objects for the Full Calendar
+			// Creates an instance of a full calendar on the page.
+			function eventParser(items) {
+
+				items.forEach(function (item) {
+					var starts = item.Start;
+					var ends = item.End;
+					var parsedStart = starts.slice(starts.indexOf("(") + 1, starts.indexOf(")"));
+					var parsedEnd = ends.slice(ends.indexOf("(") + 1, ends.indexOf(")"));
+					var tempObject = {
+						id: item.ID,
+						title: item.Title,
+						start: new Date(Number(parsedStart)).toISOString(),
+						end: new Date(Number(parsedEnd)).toISOString(),
+						backgroundColor: item.BackgroundColor,
+						notes: item.Notes
+					}
+					dataItems.push(tempObject);
+				});
+
+
+				var calendar = new FullCalendar.Calendar(calendarEl, {
+                    plugins: ['timeGrid'], //'dayGrid'
+					header: {
+						//left: 'prev,next today',
+						//center: 'title'
+						//right: 'dayGridMonth,timeGridWeek,timeGridDay'
+					},
+					eventClick: function (info) {
+						if (currentOpenTab == "editTab") {
+							selectedEventID = info.event.id;
+							$('#editTab form').css('display', 'block');
+							var selectedProjectIndex = $.grep($('#editTab  select[name=ProjectID]').children(), function (el) {
+								if (el.innerHTML == info.event.title)
+									return el;
+							})[0].index;
+							selectedDate = info.event.start;
+							$('#editTab input[name=EventDate]').removeAttr('data-val');
+							$('#editTab input[name=EventDate]').removeAttr('data-val-date');
+							$('#editTab input[name=EventDate]').attr('value', info.event.start.toLocaleDateString('en-US'));
+							$('#editTab input[name=EventDate]').val(info.event.start.toLocaleDateString('en-US'));
+							$('#editTab input[name=StartTime]').val(timeNow(info.event.start));
+							$('#editTab input[name=EndTime]').val(timeNow(info.event.end));
+							$('#editTab input[name=Notes]').val(info.event.extendedProps.notes);
+							$('#editTab select[name=ProjectID] option')[selectedProjectIndex].selected = true;
+							$('#editTab p').css('display', 'none');
+						} else {
+							selectedEventID = -1;
+							$('#editTab form').css('display', 'none');
+							$('#editTab p').css('display', 'block');
+						}
+					},
+					defaultView: 'timeGridWeek',
+					navLinks: true, // can click day/week names to navigate views
+					allDaySlot: false,
+					eventLimit: true, // allow "more" link when too many events
+					slotDuration: '00:20:00',
+					slotLabelInterval: '00:30:00',
+					minTime: '07:00:00',
+					maxTime: '19:00:00',
+					events: dataItems,
+					eventRender: function (info) {
+						if (info.event.extendedProps.notes != null)
+							$(info.el.children[0]).append("<p >" + info.event.extendedProps.notes + "</p>");
+					}
+				});
+
+				calendar.render();
+			};
+
+			// Called when Select Employee button is clicked on the page
+			// Populates the calendar with the selected employee events data
+			function selectEmployee() {
+				employeeSelected = $('#Employees').val();
+
+				getCalendarByEmployee();
+                $('#CalendarFor').text($('#Employees option:selected').text());
+                populateProjectDDL(employeeSelected);
+			}
+			// AJAX call to the controller to receive for events data
+			function getCalendarByEmployee() {
+				calendarEl.innerHTML = "";
+				dataItems = [];
+				jQuery.post('../PersonalScheduleView/GetCalendarDataForEmployee', { employeeID: employeeSelected }, function (data) { eventParser(data) });
+			}
+
+			// Called when Global Admin changes team selection
+			// Populates the employee dropdown based on the selected team
+			function selectTeam() {
+				var selectedTeam = $('#TeamList').val();
+				populateEmployeeDDL(selectedTeam);
+			}
+
+			// Populates the employee dropdown list according to the selected team
+			// Takes a number ID of the selected team
+			function populateEmployeeDDL(teamID) {
+				$('#Employees').empty();
+				jQuery.post('../PersonalScheduleView/PopulateEmployeeDropdown', { teamID: teamID }, function (data) {
+					var ddldist = $('#Employees');
+					$.each(data, function (index, employee) {
+						ddldist.append(
+							$('<option></option>').val(employee.Key).html(employee.Value)
+						);
+					});
+				});
+            };
+
+            // Populates the project dropdown list according to the selected employee
+            // Takes a number ID of the selected employee
+            function populateProjectDDL(employeeID) {
+                $('select[name=ProjectID]').empty();
+                jQuery.post('../PersonalScheduleView/PopulateProjectDropdown', { employeeID: employeeID }, function (data) {
+                    var ddldist = $('select[name=ProjectID]');
+                    $.each(data, function (index, project) {
+                        ddldist.append(
+                            $('<option></option>').val(project.Key).html(project.Value)
+                        );
+                    });
+                });
+            };
+
+			// Clears all values in the input forms
+			function clearForm(element) {
+				$(element+' input[name=EventDate]').val('');
+				$(element +' input[name=StartTime]').val('');
+				$(element +' input[name=EndTime]').val('');
+				$(element +' input[name=Notes]').val('');
+			}
+
+			// Validates input forms, used in create and edit events
+            function validateEvent(formElement, eventDate, startTime, endTime, notes) {
+
+                var errorFlag = false;
+				var errorList = $(formElement + ' .text-danger ul');
+				errorList.empty();
+				errorList.children().remove();
+
+				if (loggedInRole == 1) {
+					var today = new Date();
+					var date = new Date(eventDate);
+					if (today.getFullYear() != date.getFullYear() || today.getWeekNumber() != date.getWeekNumber()) {
+						errorFlag = true;
+						errorList.append("<li>The Event Date has to be within the current week (monday - sunday).</li>");
+					}
+				}
+                if (eventDate == "") {
+                    errorFlag = true;
+                    errorList.append("<li>The Event Date field is required.</li>");
+                }
+                if (startTime == "") {
+                    errorFlag = true;
+                    errorList.append("<li>The Start Time field is required.</li>");
+                } else {
+                    if (!validateTimes(startTime, endTime)) {
+                        errorFlag = true;
+                        errorList.append("<li>Start Time and End Time must be of the HH:MM (24 hour) format. (4:00 PM = 16:00)</li>");
+                        errorList.append("<li>Start Time must come before End Time.</li>");
+                    }
+                }
+                if (endTime == "") {
+                    errorFlag = true;
+                    errorList.append("<li>The End Time field is required.</li>");
+                } else {
+                    if (!validateTimes(startTime, endTime)) {
+                        errorFlag = true;
+                        errorList.append("<li>Start Time and End Time must be of the HH:MM (24 hour) format. (4:00 PM = 16:00)</li>");
+                        errorList.append("<li>Start Time must be greater than End Time.</li>");
+                    }
+                }
+                if (notes.length > 50) {
+                    errorFlag = true;
+                    errorList.append("<li>Notes must be less then 50 characters.</li>");
+                }
+                return errorFlag;
+			}
+			// Validates the times entered
+            function validateTimes(startTime, endTime) {
+                if (validateTimeFormat(startTime) && validateTimeFormat(endTime)) {
+                    var startSplit = startTime.split(':');
+                    var endSplit = endTime.split(':');
+                    var startHour = startSplit[0];
+                    var startMin = startSplit[1];
+                    var endHour = endTime[0];
+                    var endMin = endTime[1];
+                    
+                    if ((endSplit[0] * 60 + +endSplit[1]) <= (startSplit[0] * 60 + +startSplit[1])) {
+                        
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+			}
+			// Validates the forms for the time entered
+            function validateTimeFormat(timeString) {
+                var hours = timeString.split(':')[0];
+                var minutes = timeString.split(':')[1];
+
+                if (Number(hours) >= 0 && Number(hours) < 24 && Number(minutes) >= 0 && Number(minutes) < 60)
+                    return true;
+                else
+                    return false;
+            }
+
+			// Formats date object into the timestamp of H:M
+            function timeNow(dateObject) {
+                var h = (dateObject.getHours() < 10 ? '0' : '') + dateObject.getHours(),
+                    m = (dateObject.getMinutes() < 10 ? '0' : '') + dateObject.getMinutes();
+                return h + ':' + m;
+            }
+
+        });
+
+		// Add a function for weekNumber calculation
+		// used to limit employee from editing other weeks
+		Date.prototype.getWeekNumber = function () {
+			var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+			var dayNum = d.getUTCDay() || 7;
+			d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+			var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+			return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
+		};
+
+    </script>
+
+}
+
+<!--Copyright (c) 2019 Adam Shaw
+
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+
+    The above copyright notice and this permission notice shall be
+    included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+        Copyright (c) 2009 Trent Richardson, http://trentrichardson.com/Impromptu/
+
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+
+    The above copyright notice and this permission notice shall be
+    included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->

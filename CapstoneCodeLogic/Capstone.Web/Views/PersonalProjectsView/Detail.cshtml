@@ -1,0 +1,116 @@
+﻿@model Capstone.Web.Models.PersonalProjects.PersonalProjectBreakdownViewModel
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $("#nextbutton").on("click", function() {
+        var year = @Model.Year
+
+        $.ajax({
+          type: "POST",
+          url: '@Url.Action("_YearDetailBreakdown", "PersonalProjectsView")',
+          data: { EmployeeID: @Model.EmployeeID, ProjectID: @Model.ProjectID, Year: @Model.Year + 1 }
+        }).done(function(result) {
+            $("#partialview").html(result);
+        });
+      });
+    </script>
+
+    <script>
+        $("#prevbutton").on("click", function() {
+        var year = @Model.Year
+
+        $.ajax({
+          type: "POST",
+          url: '@Url.Action("_YearDetailBreakdown", "PersonalProjectsView")',
+          data: { EmployeeID: @Model.EmployeeID, ProjectID: @Model.ProjectID, Year: @Model.Year - 1 }
+        }).done(function(result) {
+            $("#partialview").html(result);
+        });
+      });
+    </script>
+}
+
+
+<h2>Personal Poject Breakdown</h2>
+
+<div>
+    <hr />
+    <div class="titlebox">
+        Yearly Breakdown for @Model.ProjectName
+    </div>
+
+
+
+    @Html.HiddenFor(model => model.EmployeeID)
+    @Html.HiddenFor(model => model.ProjectID)
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+            </div>
+        </div>*@
+    <div>
+
+        <div class="lefthalf maxwidth">
+
+            <div class="lefthalf">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 removefloat">
+                        @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 removefloat">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+            </div>
+
+            <div class="righthalf">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Startdate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 removefloat">
+                        @Html.EditorFor(model => model.Startdate, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ForecastedEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 removefloat">
+                        @Html.EditorFor(model => model.ForecastedEndDate, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="partialview">
+        @{
+            Html.RenderAction("_YearDetailBreakdown", "PersonalProjectsView", new { EmployeeID = Model.EmployeeID, ProjectID = Model.ProjectID, Year = Model.Year });
+        }
+    </div>
+
+
+</div>
+
+<p class="customnavbutton">
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script>
+    $("body").addClass("largepagelock");
+</script>
+

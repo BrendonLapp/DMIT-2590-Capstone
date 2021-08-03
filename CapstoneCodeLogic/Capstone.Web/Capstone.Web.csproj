@@ -1,0 +1,553 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8017FC1B-19E3-43D5-A9BD-1A4AFDAE2D5E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TACO.Web</RootNamespace>
+    <AssemblyName>TACO.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.9.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.9.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.9.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.9.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.9.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.9.1\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.9.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.9.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.9.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.9.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.9.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.9.1\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.5\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AI.Agent.Intercept">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\CustomClaimTypes.cs" />
+    <Compile Include="Admin\IdentityHelper.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdministrativeHubController.cs" />
+    <Compile Include="Controllers\AreaViewController.cs" />
+    <Compile Include="Controllers\DepartmentViewController.cs" />
+    <Compile Include="Controllers\EmployeeViewController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OffDayTypeViewController.cs" />
+    <Compile Include="Controllers\OvertimeRequestViewController.cs" />
+    <Compile Include="Controllers\OvertimeTypeViewController.cs" />
+    <Compile Include="Controllers\PersonalProjectsViewController.cs" />
+    <Compile Include="Controllers\PersonalScheduleViewController.cs" />
+    <Compile Include="Controllers\ProjectAllocationViewController.cs" />
+    <Compile Include="Controllers\ProjectHubViewController.cs" />
+    <Compile Include="Controllers\ProjectViewController.cs" />
+    <Compile Include="Controllers\ProjectCategoryViewController.cs" />
+    <Compile Include="Controllers\ScheduleTypeViewController.cs" />
+    <Compile Include="Controllers\TeamViewController.cs" />
+    <Compile Include="Controllers\UnitViewController.cs" />
+    <Compile Include="Controllers\TeamCalendarViewController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AreaViewModel.cs" />
+    <Compile Include="Models\DepartmentViewModel.cs" />
+    <Compile Include="Models\Employee\EmployeeEntitledTimeOffViewModel.cs" />
+    <Compile Include="Models\Employee\EmployeeViewModel.cs" />
+    <Compile Include="Models\Employee\EntitledTimeOffViewModel.cs" />
+    <Compile Include="Models\Employee\ListEmployeeViewModel.cs" />
+    <Compile Include="Models\OffDayTypeViewModel.cs" />
+    <Compile Include="Models\PaidHoliday\PaidHolidayViewModel.cs" />
+    <Compile Include="Models\PaidHoliday\PaidHolidayViewModelEdit.cs" />
+    <Compile Include="Models\PersonalProjects\ListPersonalProjectsViewModel.cs" />
+    <Compile Include="Models\PersonalProjects\PersonalProjectBreakdownViewModel.cs" />
+    <Compile Include="Models\PersonalProjects\YearBreakdownViewModel.cs" />
+    <Compile Include="Models\PersonalSchedule\EventDTO.cs" />
+    <Compile Include="Models\PersonalSchedule\TimesheetPartialViewModel.cs" />
+    <Compile Include="Models\Position\PositionViewModel.cs" />
+    <Compile Include="Models\Position\PositionViewModelEdit.cs" />
+    <Compile Include="Models\OvertimeTypeViewModel.cs" />
+    <Compile Include="Models\ProjectAllocation\AllocatedDaysViewModel.cs" />
+    <Compile Include="Models\ProjectAllocation\AllocatedEmployeesViewModel.cs" />
+    <Compile Include="Models\ProjectAllocation\EmployeeAllocationViewModel.cs" />
+    <Compile Include="Models\ProjectAllocation\ProjectAllocatedDaysViewModel.cs" />
+    <Compile Include="Models\Project\ProjectViewModel.cs" />
+    <Compile Include="Models\ProjectDetailViewModel.cs" />
+    <Compile Include="Models\Project\ProjectCategoryDDLViewModel.cs" />
+    <Compile Include="Models\PublicHoliday.cs" />
+    <Compile Include="Models\RequriedAttribute.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Models\ProjectCategoryViewModel.cs" />
+    <Compile Include="Models\ScheduleTypeViewModel.cs" />
+    <Compile Include="Models\OvertimeRequest\TeamOvertimeViewModel.cs" />
+    <Compile Include="Models\TeamAllocation\TeamAssignmentPotentialViewModel.cs" />
+    <Compile Include="Models\TeamCalendar\TeamCalendarAbsenceViewModel.cs" />
+    <Compile Include="Models\TeamCalendar\TeamCalendarTeamMemberModel.cs" />
+    <Compile Include="Models\TeamCalendar\TeamCalendarViewModel.cs" />
+    <Compile Include="Models\TeamAllocation\TeamAssignmentViewModel.cs" />
+    <Compile Include="Models\TeamAllocation\TeamViewModel.cs" />
+    <Compile Include="Models\UnitViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\PaidHolidayViewController.cs" />
+    <Compile Include="Controllers\PositionViewController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\FullCalendar\LICENSE.txt" />
+    <Content Include="Content\FullCalendar\packages\core\main.css" />
+    <Content Include="Content\FullCalendar\packages\core\main.js" />
+    <Content Include="Content\FullCalendar\packages\core\main.min.css" />
+    <Content Include="Content\FullCalendar\packages\core\main.min.js" />
+    <Content Include="Content\FullCalendar\packages\daygrid\main.css" />
+    <Content Include="Content\FullCalendar\packages\daygrid\main.js" />
+    <Content Include="Content\FullCalendar\packages\daygrid\main.min.css" />
+    <Content Include="Content\FullCalendar\packages\daygrid\main.min.js" />
+    <Content Include="Content\FullCalendar\packages\timegrid\main.css" />
+    <Content Include="Content\FullCalendar\packages\timegrid\main.js" />
+    <Content Include="Content\FullCalendar\packages\timegrid\main.min.css" />
+    <Content Include="Content\FullCalendar\packages\timegrid\main.min.js" />
+    <Content Include="Content\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
+    <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_100_e4f1fb_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_50_3baae3_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_80_d7ebf9_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\images\ui-bg_highlight-hard_70_000000_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_100_deedf7_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_25_ffef8f_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_2694e8_256x240.png" />
+    <Content Include="Content\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\images\ui-icons_3d80b3_256x240.png" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_72a7cf_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui-timepicker-addon.css" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\Pictures\marker.png" />
+    <Content Include="Content\Pictures\mask.png" />
+    <Content Include="Content\Pictures\wcb-logo.PNG" />
+    <Content Include="Content\Pictures\wheel.png" />
+    <Content Include="Content\spectrum.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\images\ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Pictures\logo.jpg" />
+    <Content Include="Pictures\marker.png" />
+    <Content Include="Pictures\mask.png" />
+    <Content Include="Pictures\tacooctopus.png" />
+    <Content Include="Pictures\wheel.png" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\FullCalendar\CHANGELOG.md" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\DatePicker.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\menu.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\partialviewload.js" />
+    <Content Include="Scripts\spectrum.js" />
+    <Content Include="Styles\FontAwesome\all.css" />
+    <Content Include="Styles\FontAwesome\all.js" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-brands-400.svg" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-regular-400.svg" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Styles\hubindex.css" />
+    <Content Include="Styles\master.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\DepartmentView\Create.cshtml" />
+    <Content Include="Views\DepartmentView\Deactivate.cshtml" />
+    <Content Include="Views\DepartmentView\Details.cshtml" />
+    <Content Include="Views\DepartmentView\Edit.cshtml" />
+    <Content Include="Views\DepartmentView\Index.cshtml" />
+    <Content Include="Views\EmployeeView\Index.cshtml" />
+    <Content Include="Views\EmployeeView\Create.cshtml" />
+    <Content Include="Views\EmployeeView\Edit.cshtml" />
+    <Content Include="Views\ProjectCategoryView\Index.cshtml" />
+    <Content Include="Views\ProjectCategoryView\Create.cshtml" />
+    <Content Include="Views\ProjectCategoryView\Edit.cshtml" />
+    <Content Include="Views\PositionView\Create.cshtml" />
+    <Content Include="Views\PositionView\Deactivate.cshtml" />
+    <Content Include="Views\PositionView\Details.cshtml" />
+    <Content Include="Views\PositionView\Edit.cshtml" />
+    <Content Include="Views\PositionView\Index.cshtml" />
+    <Content Include="Views\PaidHolidayView\Create.cshtml" />
+    <Content Include="Views\PaidHolidayView\Deactivate.cshtml" />
+    <Content Include="Views\PaidHolidayView\Details.cshtml" />
+    <Content Include="Views\PaidHolidayView\Edit.cshtml" />
+    <Content Include="Views\PaidHolidayView\Index.cshtml" />
+    <Content Include="Views\OvertimeTypeView\Index.cshtml" />
+    <Content Include="Views\OvertimeTypeView\Create.cshtml" />
+    <Content Include="Views\OvertimeTypeView\Edit.cshtml" />
+    <Content Include="Views\ProjectHubView\Index.cshtml" />
+    <Content Include="Views\ScheduleTypeView\Index.cshtml" />
+    <Content Include="Views\ScheduleTypeView\Create.cshtml" />
+    <Content Include="Views\ScheduleTypeView\Edit.cshtml" />
+    <Content Include="Views\ProjectCategoryView\Details.cshtml" />
+    <Content Include="Views\ProjectCategoryView\Deactivate.cshtml" />
+    <Content Include="Views\AreaView\Index.cshtml" />
+    <Content Include="Views\AreaView\Create.cshtml" />
+    <Content Include="Views\AreaView\Edit.cshtml" />
+    <Content Include="Views\AreaView\Deactivate.cshtml" />
+    <Content Include="Views\AreaView\Details.cshtml" />
+    <Content Include="Views\UnitView\Details.cshtml" />
+    <Content Include="Views\UnitView\Create.cshtml" />
+    <Content Include="Views\UnitView\Deactivate.cshtml" />
+    <Content Include="Views\UnitView\Edit.cshtml" />
+    <Content Include="Views\UnitView\Index.cshtml" />
+    <Content Include="Views\TeamView\Create.cshtml" />
+    <Content Include="Views\TeamView\Deactivate.cshtml" />
+    <Content Include="Views\TeamView\Edit.cshtml" />
+    <Content Include="Views\TeamView\Index.cshtml" />
+    <Content Include="Views\TeamView\Details.cshtml" />
+    <Content Include="Views\TeamCalendarView\Index.cshtml" />
+    <Content Include="Views\ProjectView\Create.cshtml" />
+    <Content Include="Views\OffDayTypeView\Index.cshtml" />
+    <Content Include="Views\ProjectEditPartialView.cshtml" />
+    <Content Include="Views\PersonalScheduleView\Index.cshtml" />
+    <Content Include="Views\ErrorHandling\Index.cshtml" />
+    <Content Include="Views\ErrorHandling\Not_Found.cshtml" />
+    <Content Include="Views\Shared\_StatusMessage.cshtml" />
+    <Content Include="Views\ScheduleTypeView\Deactivate.cshtml" />
+    <Content Include="Views\AreaView\_AreasIndex.cshtml" />
+    <Content Include="Views\PersonalProjectsView\Index.cshtml" />
+    <Content Include="Views\PersonalProjectsView\Detail.cshtml" />
+    <Content Include="Views\AdministrativeHub\Index.cshtml" />
+    <Content Include="Views\PersonalProjectsView\_YearDetailBreakdown.cshtml" />
+    <Content Include="Views\OvertimeRequestView\Index.cshtml" />
+    <Content Include="Views\OvertimeTypeView\Deactivate.cshtml" />
+    <Content Include="Views\OvertimeTypeView\Details.cshtml" />
+    <Content Include="Views\OffDayTypeView\Create.cshtml" />
+    <Content Include="Views\OffDayTypeView\Edit.cshtml" />
+    <Content Include="Views\OffDayTypeView\Deactivate.cshtml" />
+    <Content Include="Views\OffDayTypeView\Details.cshtml" />
+    <Content Include="Views\PersonalScheduleView\_PartialTimesheet.cshtml" />
+    <Content Include="Views\ScheduleTypeView\Details.cshtml" />
+    <Content Include="Views\ProjectView\Index.cshtml" />
+    <Content Include="Views\ProjectView\_IndexPartial.cshtml" />
+    <Content Include="Views\TeamCalendarView\_TeamAbsenceCalendar.cshtml" />
+    <Content Include="Views\TeamCalendarView\_AbsenceCreate.cshtml" />
+    <Content Include="Views\EmployeeView\Details.cshtml" />
+    <Content Include="Views\EmployeeView\Deactivate.cshtml" />
+    <Content Include="Views\EmployeeView\_EmployeeView.cshtml" />
+    <Content Include="Views\ProjectView\Edit.cshtml" />
+    <Content Include="Views\ProjectView\Details.cshtml" />
+    <Content Include="Views\ProjectView\Deactivate.cshtml" />
+    <Content Include="Views\ProjectAllocationView\_TeamPartial.cshtml" />
+    <Content Include="Views\TeamView\DisplayTemplates\TeamAssignmentViewModel.cshtml" />
+    <Content Include="Views\TeamView\DisplayTemplates\UnsavedAssignmentDataClass.cshtml" />
+    <Content Include="Views\TeamView\DisplayTemplates\TeamAssignmentPotentialViewModel.cshtml" />
+    <Content Include="Views\Error\Unauthorized.cshtml" />
+    <Content Include="Views\Error\Forbidden.cshtml" />
+    <Content Include="Views\ProjectAllocationView\_AllocationPartial.cshtml" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-brands-400.eot" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-brands-400.woff" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-regular-400.eot" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-regular-400.woff" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-solid-900.eot" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-solid-900.woff" />
+    <Content Include="Styles\FontAwesome\webfonts\fa-solid-900.woff2" />
+    <Content Include="Views\TeamCalendarView\_AbsenceEdit.cshtml" />
+    <Content Include="Views\ProjectAllocationView\ProjectIndex.cshtml" />
+    <Content Include="Views\ProjectAllocationView\Index.cshtml" />
+    <Content Include="Views\OvertimeRequestView\PersonalOvertimeRequests.cshtml" />
+    <Content Include="Views\EmployeeView\EditorTemplates\EntitledTimeOffViewModel.cshtml" />
+    <Content Include="Views\EmployeeView\Entitlements.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TACO.BLL\Capstone.BLL.csproj">
+      <Project>{4a286433-2cfe-4a57-b1b5-ef96fbe36040}</Project>
+      <Name>Capstone.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TACO.DAL\Capstone.DAL.csproj">
+      <Project>{6350eb55-883a-4324-9112-2fd7fc72e581}</Project>
+      <Name>Capstone.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52039</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52039/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.9.1\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.9.1\build\Microsoft.ApplicationInsights.DependencyCollector.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.9.1\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.9.1\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.9.1\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.9.1\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.2.9.1\build\Microsoft.ApplicationInsights.WindowsServer.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.WindowsServer.2.9.1\build\Microsoft.ApplicationInsights.WindowsServer.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.Web.2.9.1\build\Microsoft.ApplicationInsights.Web.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.Web.2.9.1\build\Microsoft.ApplicationInsights.Web.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.9.1\build\Microsoft.ApplicationInsights.DependencyCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.9.1\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.9.1\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.9.1\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.9.1\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.9.1\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.2.9.1\build\Microsoft.ApplicationInsights.WindowsServer.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.2.9.1\build\Microsoft.ApplicationInsights.WindowsServer.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.Web.2.9.1\build\Microsoft.ApplicationInsights.Web.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.Web.2.9.1\build\Microsoft.ApplicationInsights.Web.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

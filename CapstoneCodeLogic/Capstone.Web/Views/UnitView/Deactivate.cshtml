@@ -1,0 +1,69 @@
+﻿@model Capstone.Web.Models.UnitViewModel
+
+@{
+    ViewBag.Title = "Unit";
+}
+
+<h2>Deactivate Unit</h2>
+<div>
+    <hr />
+
+    <div class="titlebox">
+        Deactivating @Model.UnitName
+    </div>
+
+    <p>Are you sure you want to deactivate @Model.UnitName?</p>
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AreaID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.AreaID, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UnitName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.UnitName, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ActivationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.ActivationDate, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeactivationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 removefloat">
+                @Html.EditorFor(model => model.DeactivationDate, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+            </div>
+        </div>
+
+    </div>
+
+    @using (Html.BeginForm())
+    {
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions buttonrow">
+        <div>
+            <a href="~/UnitView/Index" class="btn btn-default cancelButton">Cancel</a>
+        </div>
+        <div>
+            <input type="submit" value="Delete" title="Deactivate" class="btn btn-default deletebutton" />
+        </div>
+    </div>
+    }
+</div>

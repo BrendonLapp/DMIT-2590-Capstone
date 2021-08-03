@@ -1,0 +1,177 @@
+﻿@model Capstone.Web.Models.TeamAllocation.TeamViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+<script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        var teamDdl = document.querySelector("select[name=PotentialTeamID]");
+        var myForm = document.getElementById("createForm");
+        console.log('Loaded');
+        console.log(teamDdl);
+        teamDdl.addEventListener('change', function (evt) {
+            var teamID = 0;
+
+            var teamName = teamDdl.options[teamDdl.selectedIndex].text;
+            if (teamName == "Select Team ...")
+                teamID == 0;
+            else
+                teamID = teamDdl.options[teamDdl.selectedIndex].value;
+            console.log('selected team -' + teamName + ' in id ' + teamID);
+            document.getElementById("PotentialTeamID").setAttribute("value", teamID);
+            document.forms["createForm"].submit();
+
+        });
+    });
+
+</script>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "createForm" }))
+{
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h2>Create Team</h2>
+    <hr />
+
+    <div class="titlebox">
+        Create a New Team
+    </div>
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UnitID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 removefloat">
+            @Html.DropDownList("UnitID", null, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TeamName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 removefloat">
+            @Html.EditorFor(model => model.TeamName, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ActivationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 removefloat">
+            @Html.EditorFor(model => model.ActivationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PotentialTeamID)
+                <div class="removefloat">
+                    @Html.DropDownList("PotentialTeamID", null, "Select Team ...", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.CurrentTeam)
+            <table class="table">
+                <tr>
+                    <th>
+                        Employee Name
+                    </th>
+                    <th>
+                        Position
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                    <th>
+                        User ID
+                    </th>
+                    <th></th>
+                </tr>
+                @Html.DisplayFor(model => model.CurrentTeam)
+
+            </table>
+            @Html.DisplayFor(model => model.UnsavedAssignments)
+        </div>
+
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.PotentialTeam)
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th>
+                        Employee Name
+                    </th>
+                    <th>
+                        Position
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                    <th>
+                        User ID
+                    </th>
+                    <th>
+                        Current Team
+                    </th>
+                </tr>
+                @if (Model.PotentialTeam == null)
+                {
+                <tr>No Team Selected</tr>
+                }
+                else
+                {
+                @Html.DisplayFor(model => model.PotentialTeam)
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="form-group buttonrow">
+    <div>
+        <a href="~/TeamView/Index" class="btn btn-default cancelButton">Cancel</a>
+    </div>
+    <div>
+        <input name="submitButton" type="submit" value="Create" class="btn btn-default savebutton" />
+    </div>
+</div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script src="~/Scripts/DatePicker.js"></script>
+    <script type="text/javascript">
+        $('input[type=text]').each(function () {
+            var req = $(this).attr('data-val-required');
+            if (undefined != req) {
+                var label = $('label[for="' + $(this).attr('id') + '"]');
+                var text = label.text();
+                if (text.length > 0) {
+                    label.append('<span style="color:red"> *</span>');
+                }
+            }
+        });
+
+        $('input[type=datetime]').each(function () {
+            var req = $(this).attr('data-val-required');
+            if (undefined != req) {
+                var label = $('label[for="' + $(this).attr('id') + '"]');
+                var text = label.text();
+                if (text.length > 0) {
+                    label.append('<span style="color:red"> *</span>');
+                }
+            }
+        });
+    </script>
+}

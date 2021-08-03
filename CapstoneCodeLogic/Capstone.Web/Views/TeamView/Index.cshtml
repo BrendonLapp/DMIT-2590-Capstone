@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Capstone.Web.Models.TeamAllocation.TeamViewModel>
+
+@{
+    ViewBag.Title = "Team";
+}
+
+<h2>All Teams</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<p class="alert-info">@TempData["message"]</p>
+
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.TeamName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivationDate)
+        </th>
+        <th>
+            Unit Name
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.TeamName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unit.UnitName)
+        </td>
+        <td class="buttoncolumn">
+            <div class="custombuttons">
+                @Html.ActionLink("Edit", "Edit", new { id = item.TeamID })
+            </div>
+            <div class="custombuttons">
+                @Html.ActionLink("Deactivate", "Deactivate", new { id = item.TeamID })
+            </div>
+            <div class="custombuttons">
+                @Html.ActionLink("Details", "Details", new { id = item.TeamID})
+            </div>
+        </td>
+    </tr>
+}
+
+</table>
